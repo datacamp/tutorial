@@ -38,31 +38,8 @@ success_msg("Great!")
 ```
 
 ```{r, ex=create_a, type=hint}
-Try something else
+Here's a hint: use `<-` for assignment
 ```
 
 You can include a second exercise as well, like this: a sample code, solution code and sct suffise:
-
-```{r, ex=create_x, type=sample-code}
-# Create the variable x, as rnorm(100)
-
-
-# Print out length of x
-
-```
-
-```{r, ex=create_x, type=solution}
-# Create a variable x, as rnorm(100)
-x = rnorm(100)
-
-# Print out a
-length(x)
-```
-
-```{r, ex=create_x, type=sct}
-test_function("rnorm")
-test_output_contains("100", incorrect_msg = "Have you printed out the length of `x`?")
-success_msg("Great!")
-```
-
 

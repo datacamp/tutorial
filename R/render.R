@@ -80,23 +80,36 @@ render <- function(input, ...) {
     ex_list[[i]]$html = html
   }
 
-  new_doc <- "<script src=\"https://cdn.datacamp.com/datacamp-light-1.0.0.min.js\"></script>\n\n"
+  new_doc <- ""
+  replacements <- list()
   for(block in blocks) {
     if(block$form == "inline") {
-      new_doc <- paste(new_doc, to_html(paste(lines[block$start:block$end], collapse = "\n")), sep = "\n")
+      new_doc <- paste(new_doc, paste(lines[block$start:block$end], collapse = "\n"), sep = "\n")
     } else {
       if(block$type == "sample-code") {
-        new_doc <- paste(new_doc, ex_list[[block$ex]]$html, sep = "\n")
+        key = paste0("datacamp_light_exercise_", block$ex)
+        new_doc <- paste(new_doc, key, sep = "\n")
+        replacements <- c(replacements, list(list(patt = key, repl = ex_list[[block$ex]]$html)))
       }
     }
   }
 
-  write(new_doc, file = gsub("\\.[R|r]md$", ".html", input))
-#   args = list(...)
-#   args$output_format = "html_document"
-#   args$input = new_input
-#   args$output_file =
-#   do.call(rmarkdown::render, args = args)
+  new_input <- "converted.Rmd"
+  write(new_doc, file = new_input)
+  args = list(...)
+  args$output_format = "html_document"
+  args$input = new_input
+  output_file <- gsub("\\.[R|r]md$", ".html", input)
+  args$output_file = output_file
+
+  do.call(rmarkdown::render, args = args)
+
+  htmlfile <- paste(readLines(output_file), collapse = "\n")
+  htmlfile <- paste0("<script src=\"https://cdn.datacamp.com/datacamp-light-1.0.0.min.js\"></script>\n\n",htmlfile)
+  for(r in replacements) {
+    htmlfile <- gsub(r$patt, r$repl, htmlfile)
+  }
+  write(htmlfile, file = output_file)
 }
 
 allowed_elements <- c("pre-exercise-code", "sample-code", "solution", "sct", "hint")
