@@ -7,11 +7,11 @@ output: html_document
 
 This is an example exercise.
 
-```{r, ex="create_a", type="pre-exercise-code"}
+```{r, ex=create_a, type=pre-exercise-code}
 b = 5
 ```
 
-```{r, ex="create_a", type="sample-code"}
+```{r, ex=create_a, type=sample-code}
 # Create a variable a, equal to 5
 
 
@@ -19,7 +19,7 @@ b = 5
 
 ```
 
-```{r, ex="create_a", type="solution"}
+```{r, ex=create_a, type=solution}
 # Create a variable a, equal to 5
 a = 5
 
@@ -28,15 +28,41 @@ a
 ```
 
 ```{r}
-# Normal R Code
+# Normal R Code trying to break things.
 ```
 
-```{r, ex="create_a", type="sct"}
+```{r, ex=create_a, type=sct}
 test_object("a")
 test_output_contains("a", incorrect_msg = "Make sure to print `a`")
 success_msg("Great!")
 ```
 
-You can include a second exercise as well.
+```{r, ex=create_a, type=hint}
+Try something else
+```
+
+You can include a second exercise as well, like this: a sample code, solution code and sct suffise:
+
+```{r, ex=create_x, type=sample-code}
+# Create the variable x, as rnorm(100)
+
+
+# Print out length of x
+
+```
+
+```{r, ex=create_x, type=solution}
+# Create a variable x, as rnorm(100)
+x = rnorm(100)
+
+# Print out a
+length(x)
+```
+
+```{r, ex=create_x, type=sct}
+test_function("rnorm")
+test_output_contains("100", incorrect_msg = "Have you printed out the length of `x`?")
+success_msg("Great!")
+```
 
 

@@ -12,6 +12,8 @@ LazyData: TRUE
 Depends:
     rmarkdown,
     knitr
+Imports:
+    markdown
 Suggests:
     testthat
 RoxygenNote: 5.0.1

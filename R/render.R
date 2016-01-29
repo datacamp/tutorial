@@ -7,7 +7,7 @@ render <- function(input, ...) {
 
   lines <- readLines(input)
 
-  begin_patt <- "^[\t >]*```+\\s*\\{[.]?[a-zA-Z]+.*ex\\s*=(.*?),\\s*type\\s*=(.*?)\\}\\s*$"
+  begin_patt <- "^[\t >]*```+\\s*\\{[.]?[a-zA-Z]+.*ex\\s*=(.*?)\\s*,\\s*type\\s*=(.*?)\\}\\s*$"
   end_patt <- "^[\t >]*```+\\s*$"
   starts <- which(grepl(begin_patt, lines))
   ends <- which(grepl(end_patt, lines))
@@ -23,12 +23,26 @@ render <- function(input, ...) {
     }
   }
 
-  chunk_lines <- matrix(c(dl_starts, dl_ends), ncol = 2)
+  blocks <- list(list(start = 1, form = "inline"))
+  for(i in 1:length(lines)) {
+    if(i %in% starts) {
+      blocks[[length(blocks)]]$end = i - 1
+      blocks <- c(blocks, list(list(start = i, form = "code")))
+    }
+
+    if(i %in% ends) {
+      blocks[[length(blocks)]]$end = i
+      blocks <- c(blocks, list(list(start = i+1, form = "inline")))
+    }
+  }
+  blocks[[length(blocks)]]$end = length(lines)
+
 
   # Convert code blocks to <code><code> stuff
   ex_list = list()
-  for(i in 1:nrow(chunk_lines)) {
-    cb <- lines[chunk_lines[i,1]: chunk_lines[i,2]]
+  for(i in seq_along(blocks)) {
+    if(blocks[[i]]$form == "inline") next
+    cb <- lines[blocks[[i]]$start: blocks[[i]]$end]
     ex = gsub(begin_patt, "\\1", cb[1])
     type = gsub(begin_patt, "\\2", cb[1])
     if(is.null(ex_list[[ex]])) {
@@ -36,29 +50,57 @@ render <- function(input, ...) {
     }
     ex_list[[ex]][[type]] = list()
     ex_list[[ex]][[type]][["content"]] = paste(cb[2:(length(cb)-1)], collapse = "\n")
-    ex_list[[ex]][[type]][["start"]] = chunk_lines[i,1]
-    ex_list[[ex]][[type]][["end"]] = chunk_lines[i,2]
+    blocks[[i]]$type = type
+    blocks[[i]]$ex = ex
+    # ex_list[[ex]][[type]][["block_num"]] = i
   }
 
-  # Write into lines again
 
+  for(i in seq_along(ex_list)) {
+    ex_name <- names(ex_list)[i]
+    ex <- ex_list[[i]]
+    if(!all(required_elements %in% names(ex))) {
+      stop(sprintf("%s does not contain all required elements. You need %s", ex_name, collapse(required_elements)))
+    }
+    if(length(ex[allowed_elements]) < length(ex)) {
+      stop(sprintf("%s contains elements that are not understood by %s.", ex_name, alias))
+    }
 
-  # Build file again
+    # order the ex elements correctly
+    ex <- ex[allowed_elements[allowed_elements %in% names(ex)]]
+    html <- "<div data-datacamp-exercise data-lang=\"r\">"
+    for(j in seq_along(ex)) {
+      el <- ex[[j]]
+      type <- names(ex)[j]
+      block <- ifelse(type == "hint", "<p data-type=\"%s\">%s</p>", "<code data-type=\"%s\">\n%s\n</code>")
+      if(type == "hint") el$content <- to_html(el$content, trim = TRUE)
+      html <- paste(html, sprintf(block, type, el$content), sep = "\n")
+    }
+    html <- paste(html, "</div>", sep = "\n")
+    ex_list[[i]]$html = html
+  }
 
+  new_doc <- "<script src=\"https://cdn.datacamp.com/datacamp-light-1.0.0.min.js\"></script>\n\n"
+  for(block in blocks) {
+    if(block$form == "inline") {
+      new_doc <- paste(new_doc, to_html(paste(lines[block$start:block$end], collapse = "\n")), sep = "\n")
+    } else {
+      if(block$type == "sample-code") {
+        new_doc <- paste(new_doc, ex_list[[block$ex]]$html, sep = "\n")
+      }
+    }
+  }
 
-  args = list(...)
-  args$output_format = "html_document"
-  args$input =
-  do.call(rmarkdown::render, args = args)
+  write(new_doc, file = gsub("\\.[R|r]md$", ".html", input))
+#   args = list(...)
+#   args$output_format = "html_document"
+#   args$input = new_input
+#   args$output_file =
+#   do.call(rmarkdown::render, args = args)
 }
 
-render_part <- function(x) UseMethod("render_part")
-
-render_part.default <- function(x) { x$input }
-
-render_part.block <- function(x) {
-  # If no DataCamp Light keywords, return source
-  if(is.null(x$params$type) || is.null(x$params$ex)) return(x$input)
+allowed_elements <- c("pre-exercise-code", "sample-code", "solution", "sct", "hint")
+required_elements <- c("sample-code", "solution", "sct")
+alias <- "DataCamp Light"
 
 
-}

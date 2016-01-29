@@ -1,0 +1,67 @@
+<script src="https://cdn.datacamp.com/datacamp-light-1.0.0.min.js"></script>
+
+
+---
+title: "Untitled"
+author: "Filip Schouwenaars"
+date: "January 25, 2016"
+output: html_document
+---
+
+This is an example exercise.
+
+
+<div data-datacamp-exercise data-lang="r"><code data-type="pre-exercise-code">
+b = 5
+</code><code data-type="sample-code">
+# Create the variable x, as rnorm(100)
+
+
+# Print out length of x
+
+</code><code data-type="solution">
+# Create a variable x, as rnorm(100)
+x = rnorm(100)
+
+# Print out a
+length(x)
+</code><code data-type="sct">
+test_function("rnorm")
+test_output_contains("100", incorrect_msg = "Have you printed out the length of `x`?")
+success_msg("Great!")
+</code><p data-type="hint">Try something else
+</p></div>
+
+
+```{r}
+# Normal R Code trying to break things.
+```
+
+
+
+You can include a second exercise as well, like this: a sample code, solution code and sct suffise:
+
+<div data-datacamp-exercise data-lang="r"><code data-type="pre-exercise-code">
+b = 5
+</code><code data-type="sample-code">
+# Create the variable x, as rnorm(100)
+
+
+# Print out length of x
+
+</code><code data-type="solution">
+# Create a variable x, as rnorm(100)
+x = rnorm(100)
+
+# Print out a
+length(x)
+</code><code data-type="sct">
+test_function("rnorm")
+test_output_contains("100", incorrect_msg = "Have you printed out the length of `x`?")
+success_msg("Great!")
+</code><p data-type="hint">Try something else
+</p></div>
+
+
+
+
