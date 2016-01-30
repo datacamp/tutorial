@@ -38,8 +38,38 @@ success_msg("Great!")
 ```
 
 ```{r, ex=create_a, type=hint}
-Here's a hint: use `<-` for assignment
+Here is a hint: use `<-` for assignment
 ```
 
 You can include a second exercise as well, like this: a sample code, solution code and sct suffise:
+
+```{r, ex=create_x, type=sample-code}
+# Create a variable x, equal to 9
+
+
+# Print out x
+
+```
+
+```{r, ex=create_x, type=sample-code}
+# Duplicate to test things
+```
+
+```{r, ex=create_x, type=solution}
+# Create a variable x, equal to 9
+x <- 9
+
+# Print out x
+x
+```
+
+```{r, ex=create_x, type=sct}
+test_object("x")
+test_output_contains("x")
+success_msg("Nice")
+```
+
+```{r, ex=create_x, type=hint}
+This time you should create the variable x
+```
 

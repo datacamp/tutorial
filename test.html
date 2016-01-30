@@ -71,7 +71,7 @@ img {
 
 
 <p>This is an example exercise.</p>
-<p><div data-datacamp-exercise data-lang="r">
+<div data-datacamp-exercise data-lang="r">
 <code data-type="pre-exercise-code">
 b = 5
 </code>
@@ -94,11 +94,30 @@ test_object("a")
 test_output_contains("a", incorrect_msg = "Make sure to print `a`")
 success_msg("Great!")
 </code>
-<p data-type="hint">Here&#39;s a hint: use <code>&lt;-</code> for assignment
+<p data-type="hint">Here is a hint: use <code>&lt;-</code> for assignment
 </p>
-</div></p>
+</div>
 <pre class="r"><code># Normal R Code trying to break things.</code></pre>
 <p>You can include a second exercise as well, like this: a sample code, solution code and sct suffise:</p>
+<div data-datacamp-exercise data-lang="r">
+<code data-type="sample-code">
+# Duplicate to test things
+</code>
+<code data-type="solution">
+# Create a variable x, equal to 9
+x <- 9
+
+# Print out x
+x
+</code>
+<code data-type="sct">
+test_object("x")
+test_output_contains("x")
+success_msg("Nice")
+</code>
+<p data-type="hint">This time you should create the variable x
+</p>
+</div>
 
 
 </div>

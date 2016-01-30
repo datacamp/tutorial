@@ -7,6 +7,7 @@ render <- function(input, ...) {
 
   lines <- readLines(input)
 
+  message(sprintf("Finding %s code chunks ...", project_alias))
   begin_patt <- "^[\t >]*```+\\s*\\{[.]?[a-zA-Z]+.*ex\\s*=(.*?)\\s*,\\s*type\\s*=(.*?)\\}\\s*$"
   end_patt <- "^[\t >]*```+\\s*$"
   starts <- which(grepl(begin_patt, lines))
@@ -23,6 +24,7 @@ render <- function(input, ...) {
     }
   }
 
+  message("Dividing document in code chunks and inline chunks ...")
   blocks <- list(list(start = 1, form = "inline"))
   for(i in 1:length(lines)) {
     if(i %in% starts) {
@@ -38,7 +40,7 @@ render <- function(input, ...) {
   blocks[[length(blocks)]]$end = length(lines)
 
 
-  # Convert code blocks to <code><code> stuff
+  message(sprintf("Collecting information for %s exercises ...", project_alias))
   ex_list = list()
   for(i in seq_along(blocks)) {
     if(blocks[[i]]$form == "inline") next
@@ -55,7 +57,7 @@ render <- function(input, ...) {
     # ex_list[[ex]][[type]][["block_num"]] = i
   }
 
-
+  message(sprintf("Preparing %s readable HTML ...", project_alias))
   for(i in seq_along(ex_list)) {
     ex_name <- names(ex_list)[i]
     ex <- ex_list[[i]]
@@ -63,7 +65,7 @@ render <- function(input, ...) {
       stop(sprintf("%s does not contain all required elements. You need %s", ex_name, collapse(required_elements)))
     }
     if(length(ex[allowed_elements]) < length(ex)) {
-      stop(sprintf("%s contains elements that are not understood by %s.", ex_name, alias))
+      stop(sprintf("%s contains elements that are not understood by %s.", ex_name, project_alias))
     }
 
     # order the ex elements correctly
@@ -80,6 +82,7 @@ render <- function(input, ...) {
     ex_list[[i]]$html = html
   }
 
+  message(sprintf("Assembling new document ..."))
   new_doc <- ""
   replacements <- list()
   for(block in blocks) {
@@ -87,13 +90,20 @@ render <- function(input, ...) {
       new_doc <- paste(new_doc, paste(lines[block$start:block$end], collapse = "\n"), sep = "\n")
     } else {
       if(block$type == "sample-code") {
-        key = paste0("datacamp_light_exercise_", block$ex)
-        new_doc <- paste(new_doc, key, sep = "\n")
-        replacements <- c(replacements, list(list(patt = key, repl = ex_list[[block$ex]]$html)))
+        if(is.null(ex_list[[block$ex]])) {
+          message("A duplicate sample-code was found.")
+        } else {
+          # TODO ADD INFORMATION IF SECOND SAMPLE CODE WAS FOUND
+          key = paste0("datacamp_light_exercise_", block$ex)
+          new_doc <- paste(new_doc, "", key, "", sep = "\n")
+          replacements <- c(replacements, list(list(patt = key, repl = ex_list[[block$ex]]$html)))
+          ex_list[[block$ex]] <- NULL # remove from list so that in case of duplicate sample_code, it's not repeated
+        }
       }
     }
   }
 
+  message("Convert Rmd to HTML using R Markdown ...")
   new_input <- "converted.Rmd"
   write(new_doc, file = new_input)
   args = list(...)
@@ -101,19 +111,17 @@ render <- function(input, ...) {
   args$input = new_input
   output_file <- gsub("\\.[R|r]md$", ".html", input)
   args$output_file = output_file
-
+  args$quiet = TRUE
   do.call(rmarkdown::render, args = args)
+  file.remove(new_input)
 
+  message("Finishing up ... ")
   htmlfile <- paste(readLines(output_file), collapse = "\n")
   htmlfile <- paste0("<script src=\"https://cdn.datacamp.com/datacamp-light-1.0.0.min.js\"></script>\n\n",htmlfile)
   for(r in replacements) {
-    htmlfile <- gsub(r$patt, r$repl, htmlfile)
+    htmlfile <- gsub(sprintf("<p>%s</p>",r$patt), r$repl, htmlfile)
   }
   write(htmlfile, file = output_file)
+  message(sprintf("Done! Your %s readable HTML file is available as %s.", project_alias, output_file))
 }
-
-allowed_elements <- c("pre-exercise-code", "sample-code", "solution", "sct", "hint")
-required_elements <- c("sample-code", "solution", "sct")
-alias <- "DataCamp Light"
-
 
