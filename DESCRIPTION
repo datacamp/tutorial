@@ -1,17 +1,15 @@
 Package: tutorial
 Type: Package
-Title: Convert R Markdown files to DataCamp Light HTML files.
+Title: Convert R Markdown files to DataCamp Light HTML files
 Version: 0.1
 Date: 2016-01-25
 Author: Filip Schouwenaars
 Maintainer: Filip Schouwenaars <filip@datacamp.com>
-Description: Wrapper around rmarkdown to convert R Markdown files to HTML files
-    that can be used for DataCamp Light.
-License: MIT
+Description: Wrapper around rmarkdown to convert R Markdown files to HTML files that can be used for DataCamp Light.
+License: MIT + file LICENSE
 LazyData: TRUE
 Depends:
-    rmarkdown,
-    knitr
+    rmarkdown
 Imports:
     markdown
 Suggests:

@@ -19,6 +19,8 @@ allowed_elements <- c("pre-exercise-code", "sample-code", "solution", "sct", "hi
 required_elements <- c("sample-code", "solution", "sct")
 project_alias <- "DataCamp Light"
 
+#' Create example .Rmd file in the current working directory
+#'
 #' @export
 build_example <- function() {
   fname <- "example.Rmd"

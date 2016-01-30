@@ -6,6 +6,11 @@
 \usage{
 render(input, ...)
 }
+\arguments{
+\item{input}{path to .Rmd file that you want to convert.}
+
+\item{...}{Other arguments that are passed to \code{rmarkdown::render}.}
+}
 \description{
 Currently only supports passing an input file, no other input methods possible.
 }
