@@ -1,3 +1,11 @@
+cpaste <- function(x) {
+  paste(x, collapse = "\n")
+}
+
+spaste <- function(...) {
+  paste(..., sep = "\n")
+}
+
 collapse <- function(x, conn = " and ") {
   if (length(x) > 1) {
     n <- length(x)
@@ -9,10 +17,9 @@ collapse <- function(x, conn = " and ") {
 }
 
 #' @importFrom markdown markdownToHTML
-to_html <- function(x, trim = FALSE) {
+to_html <- function(x) {
   html <- markdownToHTML(text = x, fragment.only = TRUE)
-  if(trim) html <- gsub("<p>(.*?)</p>", "\\1", html) #remove <p> tags, coded by front end.
-  html
+  gsub("<p>(.*?)</p>", "\\1", html) #remove <p> tags
 }
 
 allowed_elements <- c("pre-exercise-code", "sample-code", "solution", "sct", "hint")

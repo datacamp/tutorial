@@ -50,11 +50,9 @@ You can include a second exercise as well, like this: a sample code, solution co
 # Print out x
 
 ```
-
 ```{r, ex=create_x, type=sample-code}
 # Duplicate to test things
 ```
-
 ```{r, ex=create_x, type=solution}
 # Create a variable x, equal to 9
 x <- 9
