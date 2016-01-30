@@ -40,7 +40,7 @@ render <- function(input, ...) {
       current_state = "code"
     }
 
-    if(i%in% ends) {
+    if(i %in% ends) {
       if(current_state == "code") {
         blocks[[block_id]]$els[[type]] <- cpaste(lines[start:(i-1)])
         current_state <- ifelse((i + 1) %in% starts, "code", "inline")
@@ -50,7 +50,7 @@ render <- function(input, ...) {
   }
   # If more inline stuff, also add it.
   if(start < length(lines)) {
-    blocks <- c(blocks, list(list(content = lines[start: (i-1)])))
+    blocks <- c(blocks, list(list(content = cpaste(lines[start:length(lines)]), form = "inline")))
   }
 
   message(sprintf("Assembling new document ...", project_alias))

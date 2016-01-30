@@ -1,14 +1,16 @@
 ---
-title: "Untitled"
-author: "Filip Schouwenaars"
-date: "January 25, 2016"
+title: "Example Document"
+author: "Your name here"
 output: html_document
 ---
 
-This is an example exercise.
+This example document shows how you can embed interactive exercises in your R Markdown files.
+
+As an example, suppose youw ant to explain people how variable assignment works in R. Create an exercise with a certain identifier, `create_a` in this case. Then, in different R code chunks, specify the elements of the exercise by setting the `type` inside the code chunk options.
 
 ```{r, ex=create_a, type=pre-exercise-code}
-b = 5
+# This code is available in the workspace when the session initializes
+b <- 5
 ```
 
 ```{r, ex=create_a, type=sample-code}
@@ -21,14 +23,10 @@ b = 5
 
 ```{r, ex=create_a, type=solution}
 # Create a variable a, equal to 5
-a = 5
+a <- 5
 
 # Print out a
 a
-```
-
-```{r}
-# Normal R Code trying to break things.
 ```
 
 ```{r, ex=create_a, type=sct}
@@ -41,33 +39,8 @@ success_msg("Great!")
 Here is a hint: use `<-` for assignment
 ```
 
-You can include a second exercise as well, like this: a sample code, solution code and sct suffise:
+It's perfectly possible to still work with normal R markdown chunks, like this:
 
-```{r, ex=create_x, type=sample-code}
-# Create a variable x, equal to 9
-
-
-# Print out x
-
+```{r}
+head(mtcars, 10)
 ```
-```{r, ex=create_x, type=sample-code}
-# Duplicate to test things
-```
-```{r, ex=create_x, type=solution}
-# Create a variable x, equal to 9
-x <- 9
-
-# Print out x
-x
-```
-
-```{r, ex=create_x, type=sct}
-test_object("x")
-test_output_contains("x")
-success_msg("Nice")
-```
-
-```{r, ex=create_x, type=hint}
-This time you should create the variable x
-```
-
