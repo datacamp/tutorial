@@ -21,3 +21,5 @@ vignettes/*.pdf
 .DS_Store
 .Rproj.user
 
+# ignore html files that are created while testing out.
+*.html
