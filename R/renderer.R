@@ -10,48 +10,7 @@
 render <- function(input, ...) {
 
   lines <- readLines(input)
-
-  message(sprintf("Finding %s code chunks ...", project_alias))
-  begin_patt <- "^[\t >]*```+\\s*\\{[.]?[a-zA-Z]+.*ex\\s*=(.*?)\\s*,\\s*type\\s*=(.*?)\\}\\s*$"
-  end_patt <- "^[\t >]*```+\\s*$"
-  starts <- which(grepl(begin_patt, lines))
-  ends <- which(grepl(end_patt, lines))
-
-  message("Dividing document in code chunks and inline chunks ...")
-  if(1 %in% starts) stop(sprintf("Don't start your .Rmd file with a %s code chunk.", project_alias))
-  current_state <- "inline"
-  start <- 1
-  blocks <- list()
-  for(i in 2:length(lines)) {
-    if(i %in% starts) {
-      if(current_state == "inline") {
-        blocks <- c(blocks, list(list(content = cpaste(lines[start:(i-1)]), form = "inline")))
-      }
-      ex = gsub(begin_patt, "\\1", lines[i])
-      type = gsub(begin_patt, "\\2", lines[i])
-      block_id <- which(sapply(blocks, function(x) x$form == "code" && x$ex == ex))
-      new_el <- list("")
-      names(new_el) <- type
-      if(length(block_id) == 0) {
-        blocks <- c(blocks, list(list(form = "code", ex = ex, els = list())))
-        block_id <- length(blocks)
-      }
-      start <- i + 1
-      current_state = "code"
-    }
-
-    if(i %in% ends) {
-      if(current_state == "code") {
-        blocks[[block_id]]$els[[type]] <- cpaste(lines[start:(i-1)])
-        current_state <- ifelse((i + 1) %in% starts, "code", "inline")
-        start <- i + 1
-      }
-    }
-  }
-  # If more inline stuff, also add it.
-  if(start < length(lines)) {
-    blocks <- c(blocks, list(list(content = cpaste(lines[start:length(lines)]), form = "inline")))
-  }
+  blocks <- parse_lines(lines)
 
   message(sprintf("Assembling new document ...", project_alias))
   lut <- list()
@@ -86,15 +45,16 @@ render <- function(input, ...) {
   do.call(rmarkdown::render, args = args)
   file.remove(new_input)
 
-  message("Finishing up ... ")
   htmlfile <- paste(readLines(output_file), collapse = "\n")
   htmlfile <- paste0("<script src=\"https://cdn.datacamp.com/datacamp-light-1.0.0.min.js\"></script>\n\n",htmlfile)
   for(i in seq_along(lut)) {
     htmlfile <- gsub(sprintf("<p>%s</p>", names(lut)[i]), lut[i], htmlfile)
   }
   write(htmlfile, file = output_file)
+
   message(sprintf("Done! Your %s readable HTML file is available as %s.", project_alias, output_file))
 }
+
 
 build_exercise_html <- function(els) {
   els <- els[allowed_elements[allowed_elements %in% names(els)]]
@@ -108,3 +68,4 @@ build_exercise_html <- function(els) {
   }
   paste(html, "</div>", sep = "\n")
 }
+
