@@ -6,7 +6,7 @@ output: html_document
 
 This example document shows how you can embed interactive exercises in your R Markdown files.
 
-As an example, suppose youw ant to explain people how variable assignment works in R. Create an exercise with a certain identifier, `create_a` in this case. Then, in different R code chunks, specify the elements of the exercise by setting the `type` inside the code chunk options.
+As an example, suppose you want to explain people how variable assignment works in R. Create an exercise with a certain identifier, `create_a` in this case. Then, in different R code chunks, specify the elements of the exercise by setting the `type` inside the code chunk options.
 
 ```{r, ex=create_a, type=pre-exercise-code}
 # This code is available in the workspace when the session initializes
