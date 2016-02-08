@@ -24,8 +24,8 @@ render("example.Rmd")
 
 ## Other Documentation
 
-- DataCamp Light JS library: www.github.com/datacamp/datacamp-light
-- Course creation for DataCamp: docs.datacamp.com/teach
+- [DataCamp Light JS library](https://www.github.com/datacamp/datacamp-light)
+- [Course creation for DataCamp](https://docs.datacamp.com/teach)
 
 For more details, questions and suggestions, you can contact <b>support@datacamp.com</b>.
 
