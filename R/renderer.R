@@ -62,7 +62,7 @@ build_exercise_html <- function(els) {
   for(j in seq_along(els)) {
     el <- els[[j]]
     type <- names(els)[j]
-    block <- ifelse(type == "hint", "<p data-type=\"%s\">%s</p>", "<code data-type=\"%s\">\n%s\n</code>")
+    block <- ifelse(type == "hint", "<div data-type=\"%s\">%s</div>", "<code data-type=\"%s\">\n%s\n</code>")
     if(type == "hint") el <- to_html(el)
     html <- paste(html, sprintf(block, type, el), sep = "\n")
   }
