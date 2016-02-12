@@ -24,12 +24,12 @@ render <- function(input, ...) {
         stop(sprintf("%s does not contain all required elements. You need %s", block$ex, collapse(required_elements)))
       }
       if(length(block$els[allowed_elements]) < length(block$els)) {
-        stop(sprintf("%s contains elements that are not understood by %s.", ex_name, project_alias))
+        stop(sprintf("%s contains elements that are not understood by %s.", block$ex, project_alias))
       }
       html <- build_exercise_html(block$els)
       key <- sprintf("dc_light_exercise_%s", block$ex)
       lut[[key]] <- html
-      new_doc <- spaste(new_doc, key)
+      new_doc <- spaste(new_doc, "", key) # need this new line for obscure reasons
     }
   }
 
