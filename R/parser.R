@@ -1,6 +1,6 @@
 parse_lines <- function(lines) {
   message(sprintf("Dividing document in %s code chunks and inline chunks ...", project_alias))
-  begin_patt <- "^[\t >]*```+\\s*\\{[.]?[a-zA-Z]+.*ex\\s*=(.*?)\\s*,\\s*type\\s*=(.*?)\\}\\s*$"
+  begin_patt <- "^[\t >]*```+\\s*\\{[.]?[a-zA-Z]+.*ex\\s*=[\"'](.*?)[\"']\\s*,\\s*type\\s*=[\"'](.*?)[\"'].*?\\}\\s*$"
   end_patt <- "^[\t >]*```+\\s*$"
   starts <- which(grepl(begin_patt, lines))
   ends <- which(grepl(end_patt, lines))
@@ -15,8 +15,8 @@ parse_lines <- function(lines) {
       if(current_state == "inline") {
         blocks <- c(blocks, list(list(content = cpaste(lines[start:(i-1)]), form = "inline")))
       }
-      ex = gsub(" ", "", gsub(begin_patt, "\\1", lines[i]))
-      type = gsub(" ", "", gsub(begin_patt, "\\2", lines[i]))
+      ex = gsub(begin_patt, "\\1", lines[i])
+      type = gsub(begin_patt, "\\2", lines[i])
       block_id <- which(sapply(blocks, function(x) x$form == "code" && x$ex == ex))
       new_el <- list("")
       names(new_el) <- type
