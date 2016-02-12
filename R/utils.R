@@ -19,7 +19,11 @@ collapse <- function(x, conn = " and ") {
 #' @importFrom markdown markdownToHTML
 to_html <- function(x) {
   html <- markdownToHTML(text = x, fragment.only = TRUE)
-  gsub("<p>(.*?)</p>", "\\1", html) #remove <p> tags
+  #remove surrounding <p> tags
+  html <- gsub("^\\s*<p>(.*?)</p>\\s*$", "\\1", html)
+  # remove trailing newlines
+  html <- gsub("^(.*?)\\s*$", "\\1", html)
+  html
 }
 
 
