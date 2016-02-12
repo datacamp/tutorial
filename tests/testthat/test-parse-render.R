@@ -15,6 +15,10 @@ doc5 <- spaste(text1, sample1, text2, solution1, sct1, pec1)
 doc6 <- spaste(text1, sample1, solution1, text2, sct1, pec1)
 doc7 <- spaste(text1, sample1, solution1, sct1, text2, pec1)
 
+# incorrect ones
+doc8 <- spaste(text1, sample1)
+doc9 <- spaste(text1, gsub("solution", "sol-ution", solution1))
+
 test_that("parse_lines works as expected", {
 
   test_it <- function(doc) {
@@ -37,6 +41,7 @@ test_that("parse_lines works as expected", {
   test_it(doc4)
   test_it(doc5)
   test_it(doc6)
+  test_it(doc7)
 })
 
 test_that("renderer works as expected", {
@@ -46,7 +51,6 @@ test_that("renderer works as expected", {
     write(doc, file = input)
     render(input)
     output <- "test.html"
-
     expect_true(output %in% dir())
     html_lines <- readLines(output)
     expect_true(any(grepl("<div data-datacamp-exercise data-lang=\"r\">", html_lines)))
@@ -65,4 +69,18 @@ test_that("renderer works as expected", {
   test_it(doc4)
   test_it(doc5)
   test_it(doc6)
+  test_it(doc7)
+
+
+  test_it_error <- function(doc) {
+    input <- "test.Rmd"
+    write(doc, file = input)
+    expect_error(render(input))
+    unlink(input)
+  }
+
+  test_it_error(doc8)
+  test_it_error(doc9)
 })
+
+
