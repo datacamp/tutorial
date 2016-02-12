@@ -59,12 +59,27 @@ This group of code chunks:
 
 Converts to the following DataCamp Light exercise:
 
-![resulting_exercise](https://s3.amazonaws.com/assets.datacamp.com/img/github/content-engineering-repos/tutorial_exercise.png)
+![start](https://s3.amazonaws.com/assets.datacamp.com/img/github/content-engineering-repos/tutorial1_start.png)
 
-These `ex` and `type` chunk options are specific to the `tutorial` package and are not understood by R Markdown ([`knitr`](https://github.com/yihui/knitr)). To ensure backwards compatibility with systems that don't feature the `tutorial` package, you can include `eval = FALSE, include = FALSE` at the beginning of all code chunks.
+If you make an incorrect submission, you get automated feedback (through the SCT, short for Submission Correctness Test):
+
+![incorrect](https://s3.amazonaws.com/assets.datacamp.com/img/github/content-engineering-repos/tutorial2_incorrect.png)
+
+You can ask for a hint:
+
+![hint](https://s3.amazonaws.com/assets.datacamp.com/img/github/content-engineering-repos/tutorial3_hint.png)
+
+Ultimately, you can ask for the solution:
+
+![solution](https://s3.amazonaws.com/assets.datacamp.com/img/github/content-engineering-repos/tutorial4_solution.png)
+
+If you submit this code, you will get a success message:
+
+![success](https://s3.amazonaws.com/assets.datacamp.com/img/github/content-engineering-repos/tutorial5_correct.png)
 
 ## Other Documentation
 
+- [R Markdown](http://rmarkdown.rstudio.com/) and [knitr](http://yihui.name/knitr/) for dynamic documents with R. To ensure backwards compatibility with systems that don't feature the `tutorial` package, you can include `eval = FALSE, include = FALSE` at the beginning of all code chunks. In that case, R Markdown files can be rendered to HTML files without problems; the interactive exercises simply will not be included.
 - [DataCamp Light JS library](https://www.github.com/datacamp/datacamp-light)
 - [Course creation for DataCamp](https://docs.datacamp.com/teach)
 
