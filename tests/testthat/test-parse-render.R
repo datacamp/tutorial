@@ -5,19 +5,20 @@ pec1 <- "```{r, ex='test', type='pre-exercise-code'}\n# pec\n```\n"
 sample1 <- "```{r, ex='test', type=\"sample-code\", echo = FALSE}\n# sample\n```\n"
 solution1 <- "```{r, ex='test', type=\"solution\", eval = FALSE}\n# solution\n```\n"
 sct1 <- "```{r, include=FALSE, ex='test', type=\"sct\"}\n# sct\n```\n"
+hint1 <- "```{r, echo = TRUE, ex='test', type=\"hint\"}\nHere's a hint\n```\n"
 text2 <- "text with code block\n\n```{r, eval = FALSE}\nhead(mtcars)\n```\n"
 
-doc1 <- spaste(text1, pec1, sample1, solution1, sct1, text2)
-doc2 <- spaste(text1, sample1, pec1, solution1, sct1, text2)
-doc3 <- spaste(text1, sample1, solution1, pec1, sct1, text2)
-doc4 <- spaste(text1, sample1, solution1, sct1, pec1, text2)
-doc5 <- spaste(text1, sample1, text2, solution1, sct1, pec1)
-doc6 <- spaste(text1, sample1, solution1, text2, sct1, pec1)
-doc7 <- spaste(text1, sample1, solution1, sct1, text2, pec1)
+doc1 <- spaste(text1, pec1, sample1, solution1, sct1, hint1, text2)
+doc2 <- spaste(text1, sample1, pec1, solution1, sct1, hint1, text2)
+doc3 <- spaste(text1, sample1, solution1, pec1, sct1, hint1, text2)
+doc4 <- spaste(text1, sample1, solution1, sct1, pec1, hint1, text2)
+doc5 <- spaste(text1, sample1, text2, solution1, sct1, pec1, hint1)
+doc6 <- spaste(text1, sample1, solution1, text2, sct1, pec1, hint1)
+doc7 <- spaste(text1, sample1, solution1, sct1, text2, pec1, hint1)
 
 # incorrect ones
 doc8 <- spaste(text1, sample1)
-doc9 <- spaste(text1, gsub("solution", "sol-ution", solution1))
+doc9 <- spaste(doc7, "```{r, ex='test', type=\"retteketet\", eval = FALSE}\n# solution\n```\n")
 
 test_that("parse_lines works as expected", {
 
