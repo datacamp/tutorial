@@ -7,7 +7,7 @@ Create interactive online tutorials powered by [DataCamp Light](https://www.gith
 
 ## Installing the package
 
-```
+```R
 if(!require(devtools))
   install.packages("devtools")
 library(devtools)
@@ -16,7 +16,7 @@ install_github("datacamp/tutorial")
 
 ## Getting started
 
-```
+```R
 library(tutorial)
 build_example()
 render("example.Rmd")
