@@ -83,4 +83,4 @@ If you submit this code, you will get a success message:
 - [DataCamp Light JS library](https://www.github.com/datacamp/datacamp-light)
 - [Course creation for DataCamp](https://docs.datacamp.com/teach)
 
-For more details, questions and suggestions, you can contact <b>support@datacamp.com</b>.
+For more details, questions and suggestions, you can contact <b>content-engineering@datacamp.com</b>.
