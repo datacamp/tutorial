@@ -82,6 +82,6 @@ If you submit this code, you will get a success message:
 
 - [R Markdown](http://rmarkdown.rstudio.com/) and [knitr](http://yihui.name/knitr/) for dynamic documents with R. To ensure backwards compatibility with systems that don't feature the `tutorial` package, you can include `eval = FALSE, include = FALSE` at the beginning of all code chunks. In that case, R Markdown files can be rendered to HTML files without problems; the interactive exercises simply will not be included.
 - [DataCamp Light JS library](https://www.github.com/datacamp/datacamp-light)
-- [Course creation for DataCamp](https://docs.datacamp.com/teach)
+- [Course creation for DataCamp](https://www.datacamp.com/teach/documentation)
 
 For more details, questions and suggestions, you can contact <b>content-engineering@datacamp.com</b>.
