@@ -6,6 +6,9 @@
 \usage{
 build_example(lang = c("r", "python"))
 }
+\arguments{
+\item{lang}{The programming language of the interactive exercise inside the example document (default = "r")}
+}
 \description{
 Create example .Rmd file in the current working directory
 }

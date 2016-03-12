@@ -1,5 +1,7 @@
 #' Create example .Rmd file in the current working directory
 #'
+#' @param lang The programming language of the interactive exercise inside the example document (default = "r")
+#'
 #' @export
 build_example <- function(lang = c("r", "python")) {
   lang <- match.arg(lang)
