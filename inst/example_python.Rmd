@@ -1,0 +1,34 @@
+---
+title: "Example (Python)"
+author: "Your name here"
+output: html_document
+---
+
+This example document shows how you can embed interactive Python exercises in your R Markdown files.
+
+Suppose you want to explain people how variable assignment works in Python. Create an exercise with a certain identifier, `create_a` in this case. Then, in different Python code chunks, specify the elements of the exercise by setting the `type` inside the code chunk options.
+
+```{python, ex="create_a", type="pre-exercise-code"}
+# This code is available in the workspace when the session initializes
+b = 5
+```
+
+```{python, ex="create_a", type="sample-code"}
+# Create a variable a, equal to 5
+
+```
+
+```{python, ex="create_a", type="solution"}
+# Create a variable a, equal to 5
+a = 5
+```
+
+```{python, ex="create_a", type="sct"}
+test_object("a")
+success_msg("Great!")
+```
+
+```{python, ex="create_a", type="hint"}
+Here is a hint: use `=` for assignment
+```
+

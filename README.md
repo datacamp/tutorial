@@ -3,7 +3,7 @@
 [![Build Status](https://api.travis-ci.org/datacamp/tutorial.svg?branch=master)](https://travis-ci.org/datacamp/tutorial)
 [![codecov.io](https://codecov.io/github/datacamp/tutorial/coverage.svg?branch=master)](https://codecov.io/github/datacamp/tutorial?branch=master)
 
-Create interactive online tutorials powered by [DataCamp Light](https://www.github.com/datacamp/datacamp-light) from R Markdown files.
+Create interactive online tutorials powered by [DataCamp Light](https://www.github.com/datacamp/datacamp-light) from R Markdown files. You can create both R and Python exercises with the `tutorial` package.
 
 ## Installing the package
 
@@ -18,7 +18,8 @@ install_github("datacamp/tutorial")
 
 ```R
 library(tutorial)
-build_example()
+build_example() # for an example in R
+build_example(lang = "python") # for an example in Python
 render("example.Rmd")
 ```
 

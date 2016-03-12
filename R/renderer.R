@@ -5,6 +5,11 @@
 #' @param input path to .Rmd file that you want to convert.
 #' @param ... Other arguments that are passed to \code{rmarkdown::render}.
 #'
+#' @examples
+#' \dontrun{
+#' render("my_tutorial.Rmd")
+#' }
+#'
 #' @importFrom rmarkdown render
 #' @export
 render <- function(input, ...) {
@@ -26,7 +31,7 @@ render <- function(input, ...) {
       if(!all(names(block$els) %in% allowed_elements)) {
         stop(sprintf("%s contains elements that are not understood by %s.", block$ex, project_alias))
       }
-      html <- build_exercise_html(block$els)
+      html <- build_exercise_html(block$lang, block$els)
       key <- sprintf("dc_light_exercise_%s", block$ex)
       lut[[key]] <- html
       new_doc <- spaste(new_doc, "", key) # need this new line for obscure reasons
@@ -56,9 +61,9 @@ render <- function(input, ...) {
 }
 
 
-build_exercise_html <- function(els) {
+build_exercise_html <- function(lang, els) {
   els <- els[allowed_elements[allowed_elements %in% names(els)]]
-  html <- "<div data-datacamp-exercise data-lang=\"r\">"
+  html <- sprintf("<div data-datacamp-exercise data-lang=\"%s\">", lang)
   for(j in seq_along(els)) {
     el <- els[[j]]
     type <- names(els)[j]

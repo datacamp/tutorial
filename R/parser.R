@@ -1,28 +1,27 @@
-parse_lines <- function(lines) {
+parse_lines <- function(lns) {
   message(sprintf("Dividing document in %s code chunks and inline chunks ...", project_alias))
-  begin_patt_ex <- "^[\t >]*```+\\s*\\{[.]?[a-zA-Z]+.*ex\\s*=\\s*[\"'](.+?)[\"'].*\\}\\s*$"
-  begin_patt_type <- "^[\t >]*```+\\s*\\{[.]?[a-zA-Z]+.*type\\s*=\\s*[\"'](.+?)[\"'].*\\}\\s*$"
+  begin_patt_ex <- "^[\t >]*```+\\s*\\{(r|python)+.*ex\\s*=\\s*[\"'](.+?)[\"'].*\\}\\s*$"
+  begin_patt_type <- "^[\t >]*```+\\s*\\{(r|python)+.*type\\s*=\\s*[\"'](.+?)[\"'].*\\}\\s*$"
   end_patt <- "^[\t >]*```+\\s*$"
-  starts <- which(grepl(begin_patt_ex, lines) & grepl(begin_patt_type, lines))
-  ends <- which(grepl(end_patt, lines))
+  starts <- which(grepl(begin_patt_ex, lns) & grepl(begin_patt_type, lns))
+  ends <- which(grepl(end_patt, lns))
 
 
   if(1 %in% starts) stop(sprintf("Don't start your .Rmd file with a %s code chunk.", project_alias))
   current_state <- "inline"
   start <- 1
   blocks <- list()
-  for(i in 2:length(lines)) {
+  for(i in 2:length(lns)) {
     if(i %in% starts) {
       if(current_state == "inline") {
-        blocks <- c(blocks, list(list(content = cpaste(lines[start:(i-1)]), form = "inline")))
+        blocks <- c(blocks, list(list(content = cpaste(lns[start:(i-1)]), form = "inline")))
       }
-      ex = gsub(begin_patt_ex, "\\1", lines[i])
-      type = gsub(begin_patt_type, "\\1", lines[i])
+      lang = gsub(begin_patt_ex, "\\1", lns[i])
+      ex = gsub(begin_patt_ex, "\\2", lns[i])
+      type = gsub(begin_patt_type, "\\2", lns[i])
       block_id <- which(sapply(blocks, function(x) x$form == "code" && x$ex == ex))
-      new_el <- list("")
-      names(new_el) <- type
       if(length(block_id) == 0) {
-        blocks <- c(blocks, list(list(form = "code", ex = ex, els = list())))
+        blocks <- c(blocks, list(list(form = "code", ex = ex, lang = lang, els = list())))
         block_id <- length(blocks)
       }
       start <- i + 1
@@ -31,15 +30,15 @@ parse_lines <- function(lines) {
 
     if(i %in% ends) {
       if(current_state == "code") {
-        blocks[[block_id]]$els[[type]] <- cpaste(lines[start:(i-1)])
+        blocks[[block_id]]$els[[type]] <- cpaste(lns[start:(i-1)])
         current_state <- ifelse((i + 1) %in% starts, "code", "inline")
         start <- i + 1
       }
     }
   }
   # If more inline stuff, also add it.
-  if(start < length(lines)) {
-    blocks <- c(blocks, list(list(content = cpaste(lines[start:length(lines)]), form = "inline")))
+  if(start < length(lns)) {
+    blocks <- c(blocks, list(list(content = cpaste(lns[start:length(lns)]), form = "inline")))
   }
 
   return(blocks)

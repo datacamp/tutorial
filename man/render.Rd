@@ -14,4 +14,10 @@ render(input, ...)
 \description{
 Currently only supports passing an input file, no other input methods possible.
 }
+\examples{
+\dontrun{
+render("my_tutorial.Rmd")
+}
+
+}
 

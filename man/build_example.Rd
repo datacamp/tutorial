@@ -4,7 +4,7 @@
 \alias{build_example}
 \title{Create example .Rmd file in the current working directory}
 \usage{
-build_example()
+build_example(lang = c("r", "python"))
 }
 \description{
 Create example .Rmd file in the current working directory
