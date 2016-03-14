@@ -11,7 +11,7 @@ There were no ERRORs, WARNINGs or NOTEs
 
 This is a new release, so there are no reverse dependencies.
 
-## Fixes after first try
+## Fixes after first submission attempt to CRAN
 
 * Updated description of package to be more informative
 * Removed Date field
