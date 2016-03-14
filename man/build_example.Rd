@@ -4,12 +4,11 @@
 \alias{build_example}
 \title{Create example .Rmd file in the current working directory}
 \usage{
-build_example(lang = c("r", "python"))
-}
-\arguments{
-\item{lang}{The programming language of the interactive exercise inside the example document (default = "r")}
+build_example()
 }
 \description{
-Create example .Rmd file in the current working directory
+Create the file \code{example.Rmd} in your current working directory.
+This R Markdown files contains example code chunks that can be converted to
+R and Python interactive exercise with the \link{\code{render}} function.
 }
 

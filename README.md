@@ -18,8 +18,7 @@ install_github("datacamp/tutorial")
 
 ```R
 library(tutorial)
-build_example() # for an example in R
-build_example(lang = "python") # for an example in Python
+build_example()
 render("example.Rmd")
 ```
 

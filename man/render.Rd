@@ -4,19 +4,26 @@
 \alias{render}
 \title{Create DataCamp Light readable HTML file}
 \usage{
-render(input, ...)
+render(input, open = TRUE, ...)
 }
 \arguments{
 \item{input}{path to .Rmd file that you want to convert.}
 
+\item{open}{whether or not to open the resulting HTML file in your default browser (default is TRUE)}
+
 \item{...}{Other arguments that are passed to \code{rmarkdown::render}.}
 }
 \description{
-Currently only supports passing an input file, no other input methods possible.
+Wrapper around \code{rmarkdown}'s \code{render} function, that converts
+special code chunks where the \code{ex} and \code{type} options are specified,
+into interactive exercises on the resulting HTML page.
+Have a look at the file \code{\link{build_example}} generates to
+learn more about the format of the code chunks.
 }
 \examples{
 \dontrun{
-render("my_tutorial.Rmd")
+build_example()
+render("example.Rmd")
 }
 
 }

@@ -50,7 +50,7 @@ test_that("renderer works as expected", {
   test_it <- function(doc) {
     input <- "test.Rmd"
     write(doc, file = input)
-    render(input)
+    render(input, open = FALSE)
     output <- "test.html"
     expect_true(output %in% dir())
     html_lines <- readLines(output)
@@ -76,7 +76,7 @@ test_that("renderer works as expected", {
   test_it_error <- function(doc) {
     input <- "test.Rmd"
     write(doc, file = input)
-    expect_error(render(input))
+    expect_error(render(input, open = FALSE))
     unlink(input)
   }
 

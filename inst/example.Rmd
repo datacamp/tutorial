@@ -1,10 +1,10 @@
 ---
-title: "Example (R)"
+title: "Example Document"
 author: "Your name here"
 output: html_document
 ---
 
-This example document shows how you can embed interactive R exercises in your R Markdown files.
+This example document shows how you can embed interactive exercises in your R Markdown files.
 
 Suppose you want to explain people how variable assignment works in R. Create an exercise with a certain identifier, `create_a` in this case. Then, in different R code chunks, specify the elements of the exercise by setting the `type` inside the code chunk options.
 
@@ -42,5 +42,32 @@ Here is a hint: use `<-` for assignment
 It's perfectly possible to still work with normal R markdown chunks, like this:
 
 ```{r}
-head(mtcars, 10)
+head(mtcars, 4)
 ```
+
+DataCamp Light also supports Python exercises. Suppose you want to explain people how variable assignment works in Python. Create an exercise with a certain identifier, `create_b` in this case. Then, in different Python code chunks, specify the elements of the exercise by setting the `type` inside the code chunk options.
+
+```{python, ex="create_b", type="pre-exercise-code"}
+```
+
+```{python, ex="create_b", type="sample-code"}
+# Create a variable b, equal to 4
+
+```
+
+```{python, ex="create_b", type="solution"}
+# Create a variable b, equal to 4
+a = 4
+```
+
+```{python, ex="create_b", type="sct"}
+test_object("a")
+success_msg("Great!")
+```
+
+```{python, ex="create_b", type="hint"}
+Here is a hint: use `=` for assignment.
+```
+
+Have fun teaching!
+

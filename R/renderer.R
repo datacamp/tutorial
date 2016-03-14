@@ -1,18 +1,24 @@
 #' Create DataCamp Light readable HTML file
 #'
-#' Currently only supports passing an input file, no other input methods possible.
+#' Wrapper around \code{rmarkdown}'s \code{render} function, that converts
+#' special code chunks where the \code{ex} and \code{type} options are specified,
+#' into interactive exercises on the resulting HTML page.
+#' Have a look at the file \code{\link{build_example}} generates to
+#' learn more about the format of the code chunks.
 #'
 #' @param input path to .Rmd file that you want to convert.
+#' @param open whether or not to open the resulting HTML file in your default browser (default is TRUE)
 #' @param ... Other arguments that are passed to \code{rmarkdown::render}.
 #'
 #' @examples
 #' \dontrun{
-#' render("my_tutorial.Rmd")
+#' build_example()
+#' render("example.Rmd")
 #' }
 #'
 #' @importFrom rmarkdown render
 #' @export
-render <- function(input, ...) {
+render <- function(input, open = TRUE, ...) {
 
   lines <- readLines(input)
   blocks <- parse_lines(lines)
@@ -58,6 +64,10 @@ render <- function(input, ...) {
   write(htmlfile, file = output_file)
 
   message(sprintf("Done! Your %s readable HTML file is available as %s.", project_alias, output_file))
+  if(open) {
+    message(sprintf("Opening %s in your browser ...", output_file))
+    browseURL(output_file)
+  }
 }
 
 
