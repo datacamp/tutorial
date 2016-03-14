@@ -14,7 +14,7 @@ render(input, open = TRUE, ...)
 \item{...}{Other arguments that are passed to \code{rmarkdown::render}.}
 }
 \description{
-Wrapper around \code{rmarkdown}'s \code{render} function, that converts
+Wrapper around \code{rmarkdown::render} function, that converts
 special code chunks where the \code{ex} and \code{type} options are specified,
 into interactive exercises on the resulting HTML page.
 Have a look at the file \code{\link{build_example}} generates to
