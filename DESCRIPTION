@@ -1,7 +1,7 @@
 Package: tutorial
 Type: Package
 Title: Convert R Markdown files to DataCamp Light HTML files
-Version: 0.2.0
+Version: 0.2.1
 Date: 2016-01-25
 Author: Filip Schouwenaars
 Maintainer: Filip Schouwenaars <filip@datacamp.com>
