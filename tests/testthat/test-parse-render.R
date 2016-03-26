@@ -17,8 +17,11 @@ doc6 <- spaste(text1, sample1, solution1, text2, sct1, pec1, hint1)
 doc7 <- spaste(text1, sample1, solution1, sct1, text2, pec1, hint1)
 
 # incorrect ones
-doc8 <- spaste(text1, sample1)
-doc9 <- spaste(doc7, "```{r, ex='test', type=\"retteketet\", eval = FALSE}\n# solution\n```\n")
+doc8 <- spaste(doc7, "```{r, ex='test', type=\"retteketet\", eval = FALSE}\n# solution\n```\n")
+doc9 <- spaste(doc7, "```{r, ex='hutetetut', type = \"retteketkjetket\"}\n# solution\n```\n")
+
+# fiddle: only sample-code
+doc10 <- spaste(text1, sample1)
 
 test_that("parse_lines works as expected", {
 
@@ -83,5 +86,18 @@ test_that("renderer works as expected", {
   test_it_error(doc8)
   test_it_error(doc9)
 })
+
+test_that("renderer works as expected in fiddle-form", {
+  input <- "test.Rmd"
+  write(doc10, file = input)
+  render(input, open = FALSE)
+  output <- "test.html"
+  expect_true(output %in% dir())
+  html_lines <- readLines(output)
+  expect_true(any(grepl("<code data-type=\"sample-code\">", html_lines)))
+  unlink(input)
+  unlink(output)
+})
+
 
 
