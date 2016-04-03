@@ -29,7 +29,6 @@ R vignettes, blog posts and teaching material are typically standard web pages g
 
 With `tutorial::render()`, you turn an R Markdown document like this:   
 
-
     ---
     title: "Example Document"
     author: "Your name here"
@@ -38,7 +37,7 @@ With `tutorial::render()`, you turn an R Markdown document like this:
 
     If you specify the `ex` and `type` properties, `tutorial` knows what to do.
 
-    ```{r ex="play_around", type="sample-code"}
+    ```{r, ex="play_around", type="sample-code"}
     a <- 2
     b <- 3
 
