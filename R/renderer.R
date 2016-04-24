@@ -49,7 +49,7 @@ render <- function(input, open = TRUE, ...) {
   new_input <- "converted.Rmd"
   write(new_doc, file = new_input)
   args = list(...)
-  args$output_format = "html_document"
+  # args$output_format = "html_document"
   args$input = new_input
   output_file <- gsub("\\.[R|r]md$", ".html", input)
   args$output_file = output_file

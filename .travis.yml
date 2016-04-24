@@ -1,7 +1,8 @@
 language: r
 sudo: required
 
-r_check_args: --as-cran --no-tests
+r_github_packages:
+  - datacamp/tutorial
 
 r_packages:
   - covr
