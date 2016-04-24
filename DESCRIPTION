@@ -16,6 +16,9 @@ Imports:
     markdown,
     rmarkdown
 Suggests:
-    testthat
+    testthat,
+    knitr,
+    rmarkdown
 SystemRequirements: pandoc (>= 1.12.3) - http://johnmacfarlane.net/pandoc
 RoxygenNote: 5.0.1
+VignetteBuilder: rmarkdown

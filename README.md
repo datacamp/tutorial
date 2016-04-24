@@ -57,7 +57,7 @@ You can also embed coding challenges into your webpages. This group of code chun
     b <- 5
     ```
     
-    ```{r, ex="create_a", type="sample-code"}
+    ```{r ex="create_a", type="sample-code"}
     # Create a variable a, equal to 5
     
     
@@ -65,7 +65,7 @@ You can also embed coding challenges into your webpages. This group of code chun
     
     ```
     
-    ```{r, ex="create_a", type="solution"}
+    ```{r ex="create_a", type="solution"}
     # Create a variable a, equal to 5
     a <- 5
     
@@ -73,13 +73,13 @@ You can also embed coding challenges into your webpages. This group of code chun
     a
     ```
     
-    ```{r, ex="create_a", type="sct"}
+    ```{r ex="create_a", type="sct"}
     test_object("a")
     test_output_contains("a", incorrect_msg = "Make sure to print `a`")
     success_msg("Great!")
     ```
     
-    ```{r, ex="create_a", type="hint"}
+    ```{r ex="create_a", type="hint"}
     Here is a hint: use `<-` for assignment
     ```
 
