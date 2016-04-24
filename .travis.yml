@@ -1,6 +1,9 @@
 language: r
 sudo: required
 
+r_build_args: --no-build-vignettes
+r_check_args: --as-cran --no-tests
+
 r_packages:
   - covr
 
