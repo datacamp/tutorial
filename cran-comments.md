@@ -1,12 +1,19 @@
 ## Test environments
-* local OS X install, R 3.2.2
-* ubuntu 12.04 (on travis-ci), R 3.2.2
+
+* local OS X install, R 3.2.4
+* ubuntu 12.04 (on travis-ci), R 3.2.4
 * win-builder (devel and release)
+
+## R CMD check results
+
+There were no ERRORs nor WARNINGs. There were 3 NOTEs:
+
+* The package is MIT licensed and has a license template.
+* File README.md cannot be checked without 'pandoc' being installed: pandoc is a dependency of this package
+* Unexported objects imported by ':::' calls: I depend on some unexported 'knitr' and 'rmarkdown' functions. Copying these functions and all the internal functions they depend on to the tutorial package itself would be huge code duplication.
 
 ## Reverse dependencies
 
-There are no packages depending on 'tutorial' yet
+There are no packages depending on 'tutorial' yet.
 
-## Changes in this submission
 
-* Added explicit dependency on 'pandoc' inside DESCRIPTION file (brought to my attention by Brian Ripley)
