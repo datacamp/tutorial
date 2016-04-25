@@ -16,4 +16,8 @@ There were no ERRORs nor WARNINGs. There were 3 NOTEs:
 
 There are no packages depending on 'tutorial' yet.
 
+## Other notes
+
+'tutorial' registers a custom vignette engine on package load. The vignettes that are built feature JavaScript-powered interactive consoles. It all works locally, but this release is an experiment to check if it actually works on CRAN as well. My apologies if this causes issues.
+
 
