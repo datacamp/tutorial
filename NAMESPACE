@@ -2,6 +2,7 @@
 
 export(build_example)
 export(render)
+importFrom(knitr,knit_filter)
 importFrom(markdown,markdownToHTML)
 importFrom(rmarkdown,render)
 importFrom(utils,browseURL)

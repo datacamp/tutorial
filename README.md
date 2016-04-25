@@ -27,6 +27,8 @@ render("example.Rmd")
 
 R vignettes, blog posts and teaching material are typically standard web pages generated with R markdown. DataCamp has developed a framework to make this static content interactive: R code chunks are converted into an R-session backed editor so readers can experiment.
 
+### Fiddles
+
 With `tutorial::render()`, you turn an R Markdown document like this:   
 
     ---
@@ -49,6 +51,8 @@ Into an HTML file that features an in-browser R editor with a session attached t
 ![html_file](https://s3.amazonaws.com/assets.datacamp.com/img/github/content-engineering-repos/tutorial_html_file.png)
 
 ![html_file_run](https://s3.amazonaws.com/assets.datacamp.com/img/github/content-engineering-repos/tutorial_html_file_run.png)
+
+### Coding challenges
 
 You can also embed coding challenges into your webpages. This group of code chunks:
 
@@ -102,6 +106,27 @@ Ultimately, you can ask for the solution:
 If you submit this code, you will get a success message:
 
 ![success](https://s3.amazonaws.com/assets.datacamp.com/img/github/content-engineering-repos/tutorial5_correct.png)
+
+### Vignettes
+
+You can embed DataCamp Light in your package's vignettes by specifying the `ex` and `type` chunk options as usual, and adapting the vignette header
+
+    ---
+    title: "Tutorial Basics"
+    author: "Filip Schouwenaars"
+    date: "`r Sys.Date()`"
+    output: rmarkdown::html_vignette
+    vignette: >
+      %\VignetteIndexEntry{Tutorial Basics}
+      %\VignetteEngine{tutorial::tutorial}
+      %\VignetteEncoding{UTF-8}
+    ---
+
+as well as updating the `VignetteBuilder` in your DESCRIPTION file:
+
+    VignetteBuilder: tutorial
+    
+A function to do this conversion (adapt the chunks, vignette headers and DESCRIPTION file) will be added soon.
 
 ## Other Documentation
 

@@ -63,6 +63,7 @@ render <- function(input, open = TRUE, quiet = FALSE, ...) {
   file.remove(new_input)
 
   htmlfile <- paste(readLines(output_file), collapse = "\n")
+  file.remove(output_file)
   htmlfile <- paste0("<script src=\"https://cdn.datacamp.com/datacamp-light-1.0.0.min.js\"></script>\n\n",htmlfile)
   for (i in seq_along(lut)) {
     htmlfile <- gsub(sprintf("<p>%s</p>", names(lut)[i]), lut[i], htmlfile)
