@@ -20,4 +20,6 @@ There are no packages depending on 'tutorial' yet.
 
 'tutorial' registers a custom vignette engine on package load. The vignettes that are built feature JavaScript-powered interactive consoles. It all works locally, but this release is an experiment to check if it actually works on CRAN as well. My apologies if this causes issues.
 
+https://cran.rstudio.com/web/checks/check_results_tutorial.html still lists some issues with some releases, because pandoc is not installed on those systems. I'd be more than happy to fix this if you can suggest a solution.
+
 
