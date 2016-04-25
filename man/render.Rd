@@ -11,6 +11,8 @@ render(input, open = TRUE, quiet = FALSE, ...)
 
 \item{open}{whether or not to open the resulting HTML file in your default browser (default is TRUE)}
 
+\item{quiet}{hide status messages while building the HTML file?}
+
 \item{...}{Other arguments that are passed to \code{rmarkdown::render}.}
 }
 \value{

@@ -8,6 +8,7 @@
 #'
 #' @param input path to .Rmd file that you want to convert.
 #' @param open whether or not to open the resulting HTML file in your default browser (default is TRUE)
+#' @param quiet hide status messages while building the HTML file?
 #' @param ... Other arguments that are passed to \code{rmarkdown::render}.
 #'
 #' @return file name of the output file
@@ -57,7 +58,7 @@ render <- function(input, open = TRUE, quiet = FALSE, ...) {
 
   output_file <- gsub("\\.[R|r]md$", ".html", input)
   args$output_file = output_file
-  args$quiet = TRUE
+  args$quiet = quiet
   do.call(rmarkdown::render, args = args)
   file.remove(new_input)
 
