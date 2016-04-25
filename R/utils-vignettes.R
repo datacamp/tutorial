@@ -1,5 +1,5 @@
-tutweave <- function(file, ...) {
-  render(file, open = FALSE, ...)
+tutweave <- function(file, quiet, ...) {
+  render(file, open = FALSE, quiet = quiet, ...)
 }
 
 register_vignette_engines <- function(pkg) {

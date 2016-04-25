@@ -2,7 +2,7 @@ language: r
 sudo: required
 
 r_github_packages:
-  - datacamp/tutorial
+  - datacamp/tutorial  # pre-install to avoid vignette package errors
 
 r_packages:
   - covr
