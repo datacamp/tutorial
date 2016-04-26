@@ -22,7 +22,7 @@ Suppose you coded an R code example in R Markdown as follows:
     b <- 3
     ```
 
-You can convert this code chunk code examples into a fiddle to experiment. First add an `ex` and `type` option:
+You can convert this code chunk into a fiddle to experiment. First add an `ex` and `type` option:
 
     ```{r ex="play_around", type="sample-code"}
     a <- 2
