@@ -46,11 +46,9 @@ With `tutorial::render()`, you turn an R Markdown document like this:
     a + b
     ```
 
-Into an HTML file that features an in-browser R editor with a session attached to it, where you can experiment.
+Into an HTML file that features an in-browser R editor with a session attached to it, where you can [experiment](https://cran.r-project.org/web/packages/tutorial/vignettes/tutorial-basics.html#fiddles).
 
 ![html_file](https://s3.amazonaws.com/assets.datacamp.com/img/github/content-engineering-repos/tutorial_html_file.png)
-
-![html_file_run](https://s3.amazonaws.com/assets.datacamp.com/img/github/content-engineering-repos/tutorial_html_file_run.png)
 
 ### Coding challenges
 
@@ -83,29 +81,10 @@ You can also embed coding challenges into your webpages. This group of code chun
     success_msg("Great!")
     ```
     
-    ```{r ex="create_a", type="hint"}
-    Here is a hint: use `<-` for assignment
-    ```
 
-Converts to the following DataCamp Light exercise:
+Converts to the following DataCamp Light exercise ([experiment with it](https://cran.r-project.org/web/packages/tutorial/vignettes/tutorial-basics.html#interactive-exercises)):
 
 ![start](https://s3.amazonaws.com/assets.datacamp.com/img/github/content-engineering-repos/tutorial1_start.png)
-
-If you make an incorrect submission, you get automated feedback (through the SCT, short for Submission Correctness Test):
-
-![incorrect](https://s3.amazonaws.com/assets.datacamp.com/img/github/content-engineering-repos/tutorial2_incorrect.png)
-
-You can ask for a hint:
-
-![hint](https://s3.amazonaws.com/assets.datacamp.com/img/github/content-engineering-repos/tutorial3_hint.png)
-
-Ultimately, you can ask for the solution:
-
-![solution](https://s3.amazonaws.com/assets.datacamp.com/img/github/content-engineering-repos/tutorial4_solution.png)
-
-If you submit this code, you will get a success message:
-
-![success](https://s3.amazonaws.com/assets.datacamp.com/img/github/content-engineering-repos/tutorial5_correct.png)
 
 ### Vignettes
 
@@ -130,7 +109,7 @@ A function to do this conversion (adapt the chunks, vignette headers and DESCRIP
 
 ## Other Documentation
 
-- [Tutorial Basics Vignette](https://cran.r-project.org/web/packages/tutorial/vignettes/tutorial-basics.html)
+- [Tutorial Basics Vignette](https://cran.r-project.org/web/packages/tutorial/vignettes/tutorial-basics.html): explanation on how to convert your static R code chunks into interactive fiddles or exercises, where you can also experiment with DataCamp Light itself.
 - [R Markdown](http://rmarkdown.rstudio.com/) and [knitr](http://yihui.name/knitr/) for dynamic documents with R. To ensure backwards compatibility with systems that don't feature the `tutorial` package, you can include `eval = FALSE, include = FALSE` at the beginning of all code chunks. In that case, R Markdown files can be rendered to HTML files without problems; the interactive exercises simply will not be included.
 - [DataCamp Light JS library](https://www.github.com/datacamp/datacamp-light)
 - [Course creation for DataCamp](https://www.datacamp.com/teach/documentation). The documentation includes information on how to get started with course creation, what the different components of an exercise are, how you can write Submission Correctness Tests (SCTs) etc.
