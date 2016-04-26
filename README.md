@@ -130,6 +130,7 @@ A function to do this conversion (adapt the chunks, vignette headers and DESCRIP
 
 ## Other Documentation
 
+- [Tutorial Basics Vignette](https://cran.r-project.org/web/packages/tutorial/vignettes/tutorial-basics.html)
 - [R Markdown](http://rmarkdown.rstudio.com/) and [knitr](http://yihui.name/knitr/) for dynamic documents with R. To ensure backwards compatibility with systems that don't feature the `tutorial` package, you can include `eval = FALSE, include = FALSE` at the beginning of all code chunks. In that case, R Markdown files can be rendered to HTML files without problems; the interactive exercises simply will not be included.
 - [DataCamp Light JS library](https://www.github.com/datacamp/datacamp-light)
 - [Course creation for DataCamp](https://www.datacamp.com/teach/documentation). The documentation includes information on how to get started with course creation, what the different components of an exercise are, how you can write Submission Correctness Tests (SCTs) etc.
