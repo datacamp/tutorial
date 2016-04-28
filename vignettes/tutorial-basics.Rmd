@@ -9,7 +9,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-The `tutorial` package is a wrapper around `knitr` that is able to convert your static code chunks into a R/Python editor where people can experiment. This is done with the help of [DataCamp Light](https://www.github.com/datacamp/datacamp-light), a JavaScript library that converts HTML chunks with the proper formatting into iframes that house an interactive R or Python session.
+The `tutorial` package by [DataCamp](https://www.datacamp.com) is a wrapper around `knitr` that is able to convert your static code chunks into a R/Python editor where people can experiment. This is done with the help of [DataCamp Light](https://www.github.com/datacamp/datacamp-light), a JavaScript library that converts HTML chunks with the proper formatting into iframes that house an interactive R or Python session.
 
 This vignette will discuss two ways of using the `tutorial` package: to create interactive 'fiddles' and to create fully-fledged coding exercise right inside your browser.
 
