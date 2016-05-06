@@ -48,84 +48,86 @@ test_that("parse_lines works as expected", {
   test_it(doc7)
 })
 
-context("renderer")
+if (rmarkdown::pandoc_available()) {
+  context("renderer")
 
-test_that("renderer works as expected", {
+  test_that("renderer works as expected", {
 
-  test_it <- function(doc) {
+    test_it <- function(doc) {
+      input <- "test.Rmd"
+      write(doc, file = input)
+      output <- render(input, open = FALSE, quiet = TRUE)
+      expect_true(output %in% dir())
+      html_lines <- readLines(output)
+      expect_true(any(grepl("<div data-datacamp-exercise data-lang=\"r\">", html_lines)))
+      expect_true(any(grepl("<code data-type=\"pre-exercise-code\">", html_lines)))
+      expect_true(any(grepl("<code data-type=\"sample-code\">", html_lines)))
+      expect_true(any(grepl("<code data-type=\"solution\">", html_lines)))
+      expect_true(any(grepl("<code data-type=\"sct\">", html_lines)))
+
+      unlink(input)
+      unlink(output)
+    }
+
+    test_it(doc1)
+    test_it(doc2)
+    test_it(doc3)
+    test_it(doc4)
+    test_it(doc5)
+    test_it(doc6)
+    test_it(doc7)
+
+
+    test_it_error <- function(doc) {
+      input <- "test.Rmd"
+      write(doc, file = input)
+      expect_error(render(input, open = FALSE, quiet = TRUE))
+      unlink(input)
+    }
+
+    test_it_error(doc8)
+    test_it_error(doc9)
+  })
+
+  test_that("renderer works as expected in fiddle-form", {
     input <- "test.Rmd"
-    write(doc, file = input)
-    output <- render(input, open = FALSE, quiet = TRUE)
+    write(doc10, file = input)
+    render(input, open = FALSE, quiet = TRUE)
+    output <- "test.html"
     expect_true(output %in% dir())
     html_lines <- readLines(output)
-    expect_true(any(grepl("<div data-datacamp-exercise data-lang=\"r\">", html_lines)))
-    expect_true(any(grepl("<code data-type=\"pre-exercise-code\">", html_lines)))
     expect_true(any(grepl("<code data-type=\"sample-code\">", html_lines)))
-    expect_true(any(grepl("<code data-type=\"solution\">", html_lines)))
-    expect_true(any(grepl("<code data-type=\"sct\">", html_lines)))
-
     unlink(input)
     unlink(output)
-  }
+  })
 
-  test_it(doc1)
-  test_it(doc2)
-  test_it(doc3)
-  test_it(doc4)
-  test_it(doc5)
-  test_it(doc6)
-  test_it(doc7)
+  context("incorrect_formats")
 
-
-  test_it_error <- function(doc) {
+  test_that("resilient against incorrect formats", {
     input <- "test.Rmd"
-    write(doc, file = input)
+
+    write(c("---", "title: Example Document", "author: Filip", "---\n", doc10), file = input)
+    output <- render(input, open = FALSE, quiet = TRUE)
+    expect_true(any(grepl("<code data-type=\"sample-code\">", readLines(output))))
+    unlink(input)
+    unlink(output)
+
+    write(c("---", "title: Example Document", "author: Filip", "output: html_document", "---\n", doc10), file = input)
+    output <- render(input, open = FALSE, quiet = TRUE)
+    expect_true(any(grepl("<code data-type=\"sample-code\">", readLines(output))))
+    unlink(input)
+    unlink(output)
+
+    write(c("---", "title: Example Document", "author: Filip", "output: html_vignette", "---\n", doc10), file = input)
+    output <- render(input, open = FALSE, quiet = TRUE)
+    expect_true(any(grepl("<code data-type=\"sample-code\">", readLines(output))))
+    unlink(input)
+    unlink(output)
+
+    write(c("---", "title: Example Document", "author: Filip", "output: pdf_document", "---\n"), file = input)
     expect_error(render(input, open = FALSE, quiet = TRUE))
     unlink(input)
-  }
+    unlink(output)
+  })
 
-  test_it_error(doc8)
-  test_it_error(doc9)
-})
-
-test_that("renderer works as expected in fiddle-form", {
-  input <- "test.Rmd"
-  write(doc10, file = input)
-  render(input, open = FALSE, quiet = TRUE)
-  output <- "test.html"
-  expect_true(output %in% dir())
-  html_lines <- readLines(output)
-  expect_true(any(grepl("<code data-type=\"sample-code\">", html_lines)))
-  unlink(input)
-  unlink(output)
-})
-
-context("parse_lines")
-
-test_that("resilient against incorrect formats", {
-  input <- "test.Rmd"
-
-  write(c("---", "title: Example Document", "author: Filip", "---\n", doc10), file = input)
-  output <- render(input, open = FALSE, quiet = TRUE)
-  expect_true(any(grepl("<code data-type=\"sample-code\">", readLines(output))))
-  unlink(input)
-  unlink(output)
-
-  write(c("---", "title: Example Document", "author: Filip", "output: html_document", "---\n", doc10), file = input)
-  output <- render(input, open = FALSE, quiet = TRUE)
-  expect_true(any(grepl("<code data-type=\"sample-code\">", readLines(output))))
-  unlink(input)
-  unlink(output)
-
-  write(c("---", "title: Example Document", "author: Filip", "output: html_vignette", "---\n", doc10), file = input)
-  output <- render(input, open = FALSE, quiet = TRUE)
-  expect_true(any(grepl("<code data-type=\"sample-code\">", readLines(output))))
-  unlink(input)
-  unlink(output)
-
-  write(c("---", "title: Example Document", "author: Filip", "output: pdf_document", "---\n"), file = input)
-  expect_error(render(input, open = FALSE, quiet = TRUE))
-  unlink(input)
-  unlink(output)
-})
-
+}
