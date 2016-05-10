@@ -8,8 +8,7 @@ register_vignette_engines <- function(pkg) {
 
 #' @importFrom knitr knit_filter
 vig_engine <- function(..., tangle = knitr:::vtangle) {
-  knitr:::vig_engine(..., tangle = tangle, aspell = list(
-    filter = knit_filter
+  knitr:::vig_engine(..., tangle = tangle
   ))
 }
 
