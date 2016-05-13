@@ -6,15 +6,18 @@
 
 ## R CMD check results
 
-There were no ERRORs nor WARNINGs. There were 3 NOTEs:
+There were no ERRORs nor WARNINGs. There were 2 NOTEs:
 
 * The package is MIT licensed and has a license template.
 * File README.md cannot be checked without 'pandoc' being installed: pandoc is a dependency of this package
-* Unexported objects imported by ':::' calls: I depend on some unexported 'knitr' and 'rmarkdown' functions. Copying these functions and all the internal functions they depend on to the tutorial package itself would be huge code duplication.
 
 ## Reverse dependencies
 
 There are no packages depending on 'tutorial' yet.
+
+## Patch
+
+- Replaced hidden functions of the `knitr` and `rmarkdown` packages by exported functions.
 
 ## Other notes
 
