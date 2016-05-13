@@ -27,8 +27,8 @@ to_html <- function(x) {
 }
 
 check_output_format <- function(file) {
-  lines <- rmarkdown:::read_lines_utf8(file = file, encoding = getOption("encoding"))
-  output_format <- try(rmarkdown:::output_format_from_yaml_front_matter(lines)$name)
+  output_format <- try(rmarkdown::all_output_formats(file))
+  if (is.null(output_format)) output_format <- "html_document"
   if (inherits(output_format, "try-error")) {
     file.remove(file)
     stop("Make sure the YAML header contains no errors. Beware of erroneous indentation.")
