@@ -15,7 +15,9 @@ LazyData: TRUE
 Imports:
     markdown,
     rmarkdown,
-    knitr
+    knitr,
+    rjson,
+    base64enc
 Suggests:
     testthat
 SystemRequirements: pandoc (>= 1.12.3) - http://johnmacfarlane.net/pandoc

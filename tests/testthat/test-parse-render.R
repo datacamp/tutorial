@@ -21,6 +21,15 @@ doc9 <- spaste(doc7, "```{r, ex='hutetetut', type = \"retteketkjetket\"}\n# solu
 # fiddle: only sample-code
 doc10 <- spaste(text1, sample1)
 
+library(rjson)
+library(base64enc)
+extract_encoded <- function(html) {
+  patt <- "<div data-datacamp-exercise data-lang=\"r\" data-encoded=\"true\">.*?</div>"
+  part <- stringr::str_extract(html, patt)
+  code <- gsub("</div>", "", gsub("<div .*?>", "", part))
+  rjson::fromJSON(rawToChar(base64enc::base64decode(code)))
+}
+
 context("parse_lines")
 
 test_that("parse_lines works as expected", {
@@ -56,7 +65,7 @@ if (rmarkdown::pandoc_available()) {
     test_it <- function(doc) {
       input <- "test.Rmd"
       write(doc, file = input)
-      output <- render(input, open = FALSE, quiet = TRUE)
+      output <- render(input, open = FALSE, quiet = TRUE, encoded = FALSE)
       expect_true(output %in% dir())
       html_lines <- readLines(output)
       expect_true(any(grepl("<div data-datacamp-exercise data-lang=\"r\">", html_lines)))
@@ -69,6 +78,20 @@ if (rmarkdown::pandoc_available()) {
       unlink(output)
     }
 
+    test_it_2 <- function(doc) {
+      input <- "test.Rmd"
+      write(doc, file = input)
+      output <- render(input, open = FALSE, quiet = TRUE, encoded = TRUE)
+      expect_true(output %in% dir())
+      html <- paste(readLines(output), collapse = "\n")
+      parts <- extract_encoded(html)
+      nms <- names(parts)
+      expect_true("pre_exercise_code" %in% nms)
+      expect_true("sample" %in% nms)
+      expect_true("solution" %in% nms)
+      expect_true("sct" %in% nms)
+    }
+
     test_it(doc1)
     test_it(doc2)
     test_it(doc3)
@@ -77,11 +100,19 @@ if (rmarkdown::pandoc_available()) {
     test_it(doc6)
     test_it(doc7)
 
+    test_it_2(doc1)
+    test_it_2(doc2)
+    test_it_2(doc3)
+    test_it_2(doc4)
+    test_it_2(doc5)
+    test_it_2(doc6)
+    test_it_2(doc7)
 
     test_it_error <- function(doc) {
       input <- "test.Rmd"
       write(doc, file = input)
-      expect_error(render(input, open = FALSE, quiet = TRUE))
+      expect_error(render(input, open = FALSE, quiet = TRUE, encoded = FALSE))
+      expect_error(render(input, open = FALSE, quiet = TRUE, encoded = TRUE))
       unlink(input)
     }
 
@@ -92,11 +123,23 @@ if (rmarkdown::pandoc_available()) {
   test_that("renderer works as expected in fiddle-form", {
     input <- "test.Rmd"
     write(doc10, file = input)
-    render(input, open = FALSE, quiet = TRUE)
+    render(input, open = FALSE, quiet = TRUE, encoded = FALSE)
     output <- "test.html"
     expect_true(output %in% dir())
     html_lines <- readLines(output)
     expect_true(any(grepl("<code data-type=\"sample-code\">", html_lines)))
+    unlink(input)
+    unlink(output)
+
+    input <- "test.Rmd"
+    write(doc10, file = input)
+    render(input, open = FALSE, quiet = TRUE, encoded = TRUE)
+    output <- "test.html"
+    expect_true(output %in% dir())
+    html <- paste(readLines(output), collapse = "\n")
+    parts <- extract_encoded(html)
+    nms <- names(parts)
+    expect_true("sample" %in% nms)
     unlink(input)
     unlink(output)
   })
@@ -107,25 +150,25 @@ if (rmarkdown::pandoc_available()) {
     input <- "test.Rmd"
 
     write(c("---", "title: Example Document", "author: Filip", "---\n", doc10), file = input)
-    output <- render(input, open = FALSE, quiet = TRUE)
+    output <- render(input, open = FALSE, quiet = TRUE, encoded = FALSE)
     expect_true(any(grepl("<code data-type=\"sample-code\">", readLines(output))))
     unlink(input)
     unlink(output)
 
     write(c("---", "title: Example Document", "author: Filip", "output: html_document", "---\n", doc10), file = input)
-    output <- render(input, open = FALSE, quiet = TRUE)
+    output <- render(input, open = FALSE, quiet = TRUE, encoded = FALSE)
     expect_true(any(grepl("<code data-type=\"sample-code\">", readLines(output))))
     unlink(input)
     unlink(output)
 
     write(c("---", "title: Example Document", "author: Filip", "output: html_vignette", "---\n", doc10), file = input)
-    output <- render(input, open = FALSE, quiet = TRUE)
+    output <- render(input, open = FALSE, quiet = TRUE, encoded = FALSE)
     expect_true(any(grepl("<code data-type=\"sample-code\">", readLines(output))))
     unlink(input)
     unlink(output)
 
     write(c("---", "title: Example Document", "author: Filip", "output: pdf_document", "---\n"), file = input)
-    expect_error(render(input, open = FALSE, quiet = TRUE))
+    expect_error(render(input, open = FALSE, quiet = TRUE, encoded = FALSE))
     unlink(input)
     unlink(output)
   })

@@ -8,6 +8,7 @@
 #'
 #' @param input path to .Rmd file that you want to convert.
 #' @param open whether or not to open the resulting HTML file in your default browser (default is TRUE)
+#' @param encoded whether or not to encode the datacamp exercise to base64 (default is TRUE)
 #' @param quiet hide status messages while building the HTML file?
 #' @param ... Other arguments that are passed to \code{rmarkdown::render}.
 #'
@@ -22,7 +23,7 @@
 #' @importFrom rmarkdown render
 #' @importFrom utils browseURL
 #' @export
-render <- function(input, open = TRUE, quiet = FALSE, ...) {
+render <- function(input, open = TRUE, encoded = TRUE, quiet = FALSE, ...) {
 
   lines <- readLines(input)
   blocks <- parse_lines(lines)
@@ -42,7 +43,7 @@ render <- function(input, open = TRUE, quiet = FALSE, ...) {
       if (!all(names(block$els) %in% allowed_elements)) {
         stop(sprintf("%s contains elements that are not understood by %s.", block$ex, project_alias))
       }
-      html <- build_exercise_html(block$lang, block$els)
+      html <- build_exercise_html(block$lang, block$els, encoded)
       key <- sprintf("dc_light_exercise_%s", block$ex)
       lut[[key]] <- html
       new_doc <- spaste(new_doc, "", key) # need this new line for obscure reasons
@@ -80,17 +81,40 @@ render <- function(input, open = TRUE, quiet = FALSE, ...) {
 }
 
 
-build_exercise_html <- function(lang, els) {
+#' @importFrom base64enc base64encode
+#' @importFrom rjson toJSON
+build_exercise_html <- function(lang, els, encoded) {
   els <- els[allowed_elements[allowed_elements %in% names(els)]]
-  html <- sprintf("<div data-datacamp-exercise data-lang=\"%s\">", lang)
-  for (j in seq_along(els)) {
-    el <- els[[j]]
-    type <- names(els)[j]
-    block <- ifelse(type == "hint", "<div data-type=\"%s\">%s</div>", "<code data-type=\"%s\">\n%s\n</code>")
-    if (type == "hint") el <- to_html(el)
-    html <- paste(html, sprintf(block, type, el), sep = "\n")
+
+  # if there's a hint, htmlify it
+  if ("hint" %in% names(els)) {
+    ind <- which(names(els) == "hint")
+    els[[ind]] <- to_html(els[[ind]])
   }
-  paste(html, "</div>", sep = "\n")
+
+
+  if (encoded) {
+    # Translate pec and sample code for things to work in the encoded format
+    dict <- c(`pre-exercise-code` = "pre_exercise_code",
+              `sample-code` = "sample",
+              solution = "solution",
+              sct = "sct",
+              hint = "hint")
+    names(els) <- dict[names(els)]
+    encoded <- base64encode(charToRaw(toJSON(els)))
+    patt <- "<div data-datacamp-exercise data-lang=\"%s\" data-encoded=\"true\">%s</div>"
+    return(sprintf(patt, lang, encoded))
+  } else {
+    html <- sprintf("<div data-datacamp-exercise data-lang=\"%s\">", lang)
+    for (j in seq_along(els)) {
+      el <- els[[j]]
+      type <- names(els)[j]
+      block <- ifelse(type == "hint", "<div data-type=\"%s\">%s</div>", "<code data-type=\"%s\">\n%s\n</code>")
+      if (type == "hint") el <- to_html(el)
+      html <- paste(html, sprintf(block, type, el), sep = "\n")
+    }
+    return(paste(html, "</div>", sep = "\n"))
+  }
 }
 
 
