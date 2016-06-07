@@ -4,7 +4,7 @@
 [![codecov.io](https://codecov.io/github/datacamp/tutorial/coverage.svg?branch=master)](https://codecov.io/github/datacamp/tutorial?branch=master)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/tutorial)](http://cran.r-project.org/package=tutorial)
 
-Wrapper around `knitr` to convert your static code chunks into a R/Python editor where people can experiment. Powered by [DataCamp Light](https://www.github.com/datacamp/datacamp-light).
+Wrapper around `knitr` to convert your static code chunks into a R/Python editor where people can experiment. Powered by [DataCamp Light](https://www.github.com/datacamp/datacamp-light), a lightweight version of DataCamp's learning interface.
 
 ## Installing the package
 
