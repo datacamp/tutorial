@@ -58,11 +58,11 @@ DataCamp Light also supports Python exercises. Let's create an exercise with a c
 
 ```{python, ex="create_b", type="solution"}
 # Create a variable b, equal to 4
-a = 4
+b = 4
 ```
 
 ```{python, ex="create_b", type="sct"}
-test_object("a")
+test_object("b")
 success_msg("Great!")
 ```
 
