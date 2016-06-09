@@ -8,11 +8,19 @@ Wrapper around `knitr` to convert your static code chunks into a R/Python editor
 
 ## Installing the package
 
+Latest released version from CRAN
+
+```
+install.packages("tutorial")
+```
+
+Latest development version from GitHub:
+
 ```R
-if(!require(devtools))
+if(!require(devtools)) {
   install.packages("devtools")
-library(devtools)
-install_github("datacamp/tutorial")
+}
+devtools::install_github("datacamp/tutorial")
 ```
 
 ## Getting started
