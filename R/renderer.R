@@ -8,7 +8,7 @@
 #'
 #' @param input path to .Rmd file that you want to convert.
 #' @param open whether or not to open the resulting HTML file in your default browser (default is TRUE)
-#' @param encoded whether or not to encode the datacamp exercise to base64 (default is TRUE)
+#' @param encoded whether or not to encode the datacamp exercise to base64 (default is FALSE)
 #' @param quiet hide status messages while building the HTML file?
 #' @param ... Other arguments that are passed to \code{rmarkdown::render}.
 #'
@@ -23,7 +23,7 @@
 #' @importFrom rmarkdown render
 #' @importFrom utils browseURL
 #' @export
-render <- function(input, open = TRUE, encoded = TRUE, quiet = FALSE, ...) {
+render <- function(input, open = TRUE, encoded = FALSE, quiet = FALSE, ...) {
 
   lines <- readLines(input)
   blocks <- parse_lines(lines)

@@ -4,14 +4,14 @@
 \alias{render}
 \title{Create DataCamp Light readable HTML file}
 \usage{
-render(input, open = TRUE, encoded = TRUE, quiet = FALSE, ...)
+render(input, open = TRUE, encoded = FALSE, quiet = FALSE, ...)
 }
 \arguments{
 \item{input}{path to .Rmd file that you want to convert.}
 
 \item{open}{whether or not to open the resulting HTML file in your default browser (default is TRUE)}
 
-\item{encoded}{whether or not to encode the datacamp exercise to base64 (default is TRUE)}
+\item{encoded}{whether or not to encode the datacamp exercise to base64 (default is FALSE)}
 
 \item{quiet}{hide status messages while building the HTML file?}
 
