@@ -45,9 +45,9 @@ With `tutorial::render()`, you turn an R Markdown document like this:
     output: html_document
     ---
 
-    If you specify the `ex` and `type` properties, `tutorial` knows what to do.
+    If you specify the `ex` property, `tutorial` knows what to do.
 
-    ```{r, ex="play_around", type="sample-code"}
+    ```{r, ex="play_around"}
     a <- 2
     b <- 3
 

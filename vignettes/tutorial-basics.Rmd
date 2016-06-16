@@ -22,9 +22,9 @@ Suppose you coded an R code example in R Markdown as follows:
     b <- 3
     ```
 
-You can convert this code chunk into a fiddle to experiment. First add an `ex` and `type` option:
+You can convert this code chunk into a fiddle to experiment. Simply specify an `ex` identifier:
 
-    ```{r ex="play_around", type="sample-code"}
+    ```{r ex="play_around"}
     a <- 2
     b <- 3
     ```
@@ -36,21 +36,25 @@ library(tutorial)
 tutorial::render("my_doc.Rmd")
 ```
 
-The resulting HTML file will contain an iframe that looks like this, where people can experiment. On the left, there is a script editor. When you hit Run, your code is executed in the console on the right. You can also directly experiment inside this console.
+The resulting HTML file will contain an iframe that looks like this, where people can experiment. On the left, there is a script editor. When you hit Run, your code is executed in the console. You can also directly experiment inside this console.
 
-```{r eval = FALSE, include = FALSE, ex="play_around", type="sample-code"}
+```{r eval = FALSE, include = FALSE, ex="play_around"}
 a <- 2
 b <- 3
 ```
 
-To not clutter the code example, you might want to pre-load some data or load some packages beforehand. You can do this by specifying a chunk with `type = 'pre-exercise-code'`. Make sure you specify the same `ex` label to tie the `pre-exercise-code` to the correct `sample-code`:
+To not clutter the code example, you might want to pre-load some data or load some packages beforehand. You can do this by specifying a chunk with `type = 'pre-exercise-code'`. Make sure you specify the same `ex` label to tie the two code blocks together:
 
-    ```{r ex="play_around", type="sample-code"}
+    ```{r ex="play_around", type="pre-exercise-code"}
     c <- 4
-    library(dplyr)
+    library(stringr)
     ```
     
-
+    ```{r ex="play_around", type="sample-code"}
+    a <- 2
+    b <- 3
+    ```
+    
 ## Interactive exercises
 
 Next to fiddles, you can also code up entire interactive exercises with DataCamp Light. This group of code chunks:
@@ -81,7 +85,7 @@ Next to fiddles, you can also code up entire interactive exercises with DataCamp
     success_msg("Great!")
     ```
     
-Converts to the following DataCamp Light exercise. The `pre-exercise-code` initializes the R session. The `sample-code` is the fill-in form to start from, The `solution` specifies the solution, and finally `sct` stands for Submission Correctness Test. These tests to check whether the student submitted the correct code, can be written with the [`testwhat`](https://www.github.com/datacamp/testwhat) package.
+Converts to the following DataCamp Light exercise. The `pre-exercise-code` initializes the R session. The `sample-code` is the fill-in form to start from, The `solution` specifies the solution, and finally `sct` stands for Submission Correctness Test. These tests to check whether the student submitted the correct code, can be written with the functions from the [`testwhat`](https://www.github.com/datacamp/testwhat) package.
 
 ```{r eval = FALSE, include = FALSE, ex="create_a", type="pre-exercise-code"}
 # This code is available in the workspace when the session initializes

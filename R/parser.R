@@ -3,7 +3,7 @@ parse_lines <- function(lns) {
   begin_patt_ex <- "^[\t >]*```+\\s*\\{(r|python)+.*ex\\s*=\\s*[\"'](.+?)[\"'].*\\}\\s*$"
   begin_patt_type <- "^[\t >]*```+\\s*\\{(r|python)+.*type\\s*=\\s*[\"'](.+?)[\"'].*\\}\\s*$"
   end_patt <- "^[\t >]*```+\\s*$"
-  starts <- which(grepl(begin_patt_ex, lns) & grepl(begin_patt_type, lns))
+  starts <- which(grepl(begin_patt_ex, lns))
   ends <- which(grepl(end_patt, lns))
 
 
@@ -16,9 +16,14 @@ parse_lines <- function(lns) {
       if(current_state == "inline") {
         blocks <- c(blocks, list(list(content = cpaste(lns[start:(i-1)]), form = "inline")))
       }
-      lang = gsub(begin_patt_ex, "\\1", lns[i])
-      ex = gsub(begin_patt_ex, "\\2", lns[i])
-      type = gsub(begin_patt_type, "\\2", lns[i])
+      lang <- gsub(begin_patt_ex, "\\1", lns[i])
+      ex <- gsub(begin_patt_ex, "\\2", lns[i])
+      if (grepl(begin_patt_type, lns[i])) {
+        type <- gsub(begin_patt_type, "\\2", lns[i])
+      } else {
+        type <- "sample-code"
+      }
+
       block_id <- which(sapply(blocks, function(x) x$form == "code" && x$ex == ex))
       if(length(block_id) == 0) {
         blocks <- c(blocks, list(list(form = "code", ex = ex, lang = lang, els = list())))

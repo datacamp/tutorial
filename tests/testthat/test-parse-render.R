@@ -1,6 +1,7 @@
 text1 <- "this is a test\n"
 pec1 <- "```{r, ex='test', type='pre-exercise-code'}\n# pec\n```\n"
 sample1 <- "```{r, ex='test', type=\"sample-code\", echo = FALSE}\n# sample\n```\n"
+sample1_no_type <- "```{r, ex='test', echo = FALSE}\n# sample\n```\n"
 solution1 <- "```{r, ex='test', type=\"solution\", eval = FALSE}\n# solution\n```\n"
 sct1 <- "```{r, include=FALSE, ex='test', type=\"sct\"}\n# sct\n```\n"
 hint1 <- "```{r, echo = TRUE, ex='test', type=\"hint\"}\nHere's a hint\n```\n"
@@ -20,6 +21,7 @@ doc9 <- spaste(doc7, "```{r, ex='hutetetut', type = \"retteketkjetket\"}\n# solu
 
 # fiddle: only sample-code
 doc10 <- spaste(text1, sample1)
+doc11 <- spaste(text1, sample1_no_type)
 
 library(rjson)
 library(base64enc)
@@ -121,27 +123,34 @@ if (rmarkdown::pandoc_available()) {
   })
 
   test_that("renderer works as expected in fiddle-form", {
-    input <- "test.Rmd"
-    write(doc10, file = input)
-    render(input, open = FALSE, quiet = TRUE, encoded = FALSE)
-    output <- "test.html"
-    expect_true(output %in% dir())
-    html_lines <- readLines(output)
-    expect_true(any(grepl("<code data-type=\"sample-code\">", html_lines)))
-    unlink(input)
-    unlink(output)
 
-    input <- "test.Rmd"
-    write(doc10, file = input)
-    render(input, open = FALSE, quiet = TRUE, encoded = TRUE)
-    output <- "test.html"
-    expect_true(output %in% dir())
-    html <- paste(readLines(output), collapse = "\n")
-    parts <- extract_encoded(html)
-    nms <- names(parts)
-    expect_true("sample" %in% nms)
-    unlink(input)
-    unlink(output)
+    test_it <- function(doc) {
+      input <- "test.Rmd"
+      write(doc, file = input)
+      render(input, open = FALSE, quiet = TRUE, encoded = FALSE)
+      output <- "test.html"
+      expect_true(output %in% dir())
+      html_lines <- readLines(output)
+      expect_true(any(grepl("<code data-type=\"sample-code\">", html_lines)))
+      unlink(input)
+      unlink(output)
+
+      input <- "test.Rmd"
+      write(doc, file = input)
+      render(input, open = FALSE, quiet = TRUE, encoded = TRUE)
+      output <- "test.html"
+      expect_true(output %in% dir())
+      html <- paste(readLines(output), collapse = "\n")
+      parts <- extract_encoded(html)
+      nms <- names(parts)
+      expect_true("sample" %in% nms)
+      unlink(input)
+      unlink(output)
+    }
+
+    test_it(doc10)
+    test_it(doc11)
+
   })
 
   context("incorrect_formats")
