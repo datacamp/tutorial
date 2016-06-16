@@ -1,3 +1,3 @@
-.onLoad = function(lib, pkg) {
+.onLoad <- function(lib, pkg) {
   register_vignette_engines(pkg)
 }

@@ -9,5 +9,3 @@ test_that("add tests", {
   expect_true(any(grepl("Example Document", readLines(filename))))
   unlink(filename)
 })
-
-

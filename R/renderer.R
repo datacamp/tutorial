@@ -38,10 +38,12 @@ render <- function(input, open = TRUE, encoded = FALSE, quiet = FALSE, ...) {
     } else {
       # Do some checks on the chunks
       if (!all(required_elements %in% names(block$els))) {
-        stop(sprintf("%s does not contain all required elements. You need %s", block$ex, collapse(required_elements)))
+        stop(sprintf("%s does not contain all required elements. You need %s",
+                     block$ex, collapse(required_elements)))
       }
       if (!all(names(block$els) %in% allowed_elements)) {
-        stop(sprintf("%s contains elements that are not understood by %s.", block$ex, project_alias))
+        stop(sprintf("%s contains elements that are not understood by %s.",
+                     block$ex, project_alias))
       }
       html <- build_exercise_html(block$lang, block$els, encoded)
       key <- sprintf("dc_light_exercise_%s", block$ex)
@@ -53,25 +55,26 @@ render <- function(input, open = TRUE, encoded = FALSE, quiet = FALSE, ...) {
   msg("Convert Rmd to HTML using R Markdown ...", quiet)
   new_input <- "converted.Rmd"
   write(new_doc, file = new_input)
-  args = list(...)
-  args$input = new_input
+  args <- list(...)
+  args$input <- new_input
   check_output_format(new_input)
 
   output_file <- gsub("\\.[R|r]md$", ".html", input)
-  args$output_file = output_file
-  args$quiet = quiet
+  args$output_file <- output_file
+  args$quiet <- quiet
   do.call(rmarkdown::render, args = args)
   file.remove(new_input)
 
   htmlfile <- paste(readLines(output_file), collapse = "\n")
   file.remove(output_file)
-  htmlfile <- paste0("<script src=\"https://cdn.datacamp.com/datacamp-light-1.0.0.min.js\"></script>\n\n",htmlfile)
+  htmlfile <- paste0("<script src=\"https://cdn.datacamp.com/datacamp-light-1.0.0.min.js\"></script>\n\n", htmlfile)
   for (i in seq_along(lut)) {
     htmlfile <- gsub(sprintf("<p>%s</p>", names(lut)[i]), lut[i], htmlfile)
   }
   write(htmlfile, file = output_file)
 
-  msg(sprintf("Done! Your %s readable HTML file is available as %s.", project_alias, output_file), quiet)
+  msg(sprintf("Done! Your %s readable HTML file is available as %s.",
+              project_alias, output_file), quiet)
   if (open) {
     msg(sprintf("Opening %s in your browser ...", output_file), quiet)
     browseURL(output_file)
@@ -109,13 +112,12 @@ build_exercise_html <- function(lang, els, encoded) {
     for (j in seq_along(els)) {
       el <- els[[j]]
       type <- names(els)[j]
-      block <- ifelse(type == "hint", "<div data-type=\"%s\">%s</div>", "<code data-type=\"%s\">\n%s\n</code>")
+      block <- ifelse(type == "hint",
+                      "<div data-type=\"%s\">%s</div>",
+                      "<code data-type=\"%s\">\n%s\n</code>")
       if (type == "hint") el <- to_html(el)
       html <- paste(html, sprintf(block, type, el), sep = "\n")
     }
     return(paste(html, "</div>", sep = "\n"))
   }
 }
-
-
-
