@@ -95,7 +95,6 @@ build_exercise_html <- function(lang, els, encoded) {
     els[[ind]] <- to_html(els[[ind]])
   }
 
-
   if (encoded) {
     # Translate pec and sample code for things to work in the encoded format
     dict <- c(`pre-exercise-code` = "pre_exercise_code",
