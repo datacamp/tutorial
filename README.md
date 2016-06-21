@@ -68,6 +68,8 @@ If you render an R Markdown document like this:
 
 An HTML file results that features an in-browser R editor with a session attached to it, where you can [experiment](https://cran.r-project.org/web/packages/tutorial/vignettes/tutorial-basics.html#fiddles).
 
+![html_file](https://s3.amazonaws.com/assets.datacamp.com/img/github/content-engineering-repos/tutorial_fiddle.png)
+
 ### Coding challenges
 
 You can also embed coding challenges into your webpages. This group of code chunks:
@@ -100,6 +102,8 @@ You can also embed coding challenges into your webpages. This group of code chun
     ```
     
 Converts to the following DataCamp Light exercise ([experiment with it](https://cran.r-project.org/web/packages/tutorial/vignettes/tutorial-basics.html#interactive-exercises)).
+
+![html_file](https://s3.amazonaws.com/assets.datacamp.com/img/github/content-engineering-repos/tutorial_exercise.png)
 
 ### Vignettes
 
