@@ -75,7 +75,6 @@ An HTML file results that features an in-browser R editor with a session attache
 You can also embed coding challenges into your webpages. This group of code chunks:
 
     ```{r ex="create_a", type="pre-exercise-code"}
-    # This code is available in the workspace when the session initializes
     b <- 5
     ```
     
@@ -97,7 +96,7 @@ You can also embed coding challenges into your webpages. This group of code chun
     
     ```{r ex="create_a", type="sct"}
     test_object("a")
-    test_output_contains("a", incorrect_msg = "Make sure to print `a`")
+    test_output_contains("a", incorrect_msg = "Make sure to print `a`.")
     success_msg("Great!")
     ```
     
@@ -107,7 +106,7 @@ Converts to the following DataCamp Light exercise ([experiment with it](https://
 
 ### Vignettes
 
-You can embed DataCamp Light in your package's vignettes by specifying the `ex` and `type` chunk options as usual, and adding the same line to the top of your vignette:
+You can power your package's vignettes with DataCamp Light by adding the same line to the top of your vignette:
 
     ---
     title: "Tutorial Basics"
@@ -123,6 +122,8 @@ You can embed DataCamp Light in your package's vignettes by specifying the `ex` 
     ```{r, include = FALSE}
     tutorial::go_interactive()
     ```
+    
+    _remainder of vignette omitted_
 
 ## Support for Python
 

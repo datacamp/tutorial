@@ -114,7 +114,7 @@ Next to fiddles, you can also code up entire interactive exercises with DataCamp
     test_output_contains("a", incorrect_msg = "Make sure to print out `a`.")
     success_msg("Great!")
     ```
-    
+   
 Converts to the following DataCamp Light exercise:
 
 ```{r ex="create_a", type="pre-exercise-code"}
