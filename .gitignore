@@ -12,7 +12,6 @@
 vignettes/*.html
 vignettes/*.pdf
 vignettes/*.R
-
 # OAuth2 token, see https://github.com/hadley/httr/releases/tag/v0.3
 .httr-oauth
 .DS_Store
@@ -20,4 +19,6 @@ vignettes/*.R
 # ignore example rmd and html files that are mistakenly not cleaned
 example.html
 example.Rmd
+test.Rmd
+test.html
 inst/doc
