@@ -119,8 +119,8 @@ if (rmarkdown::pandoc_available()) {
     write(c("---", "title: Example Document", "author: Filip", "output: html_vignette", "---\n", rest), file = input)
     check()
 
-    write(c("---", "title: Example Document", "author: Filip", "output: pdf_document", "---\n", rest), file = input)
-    expect_error(rmarkdown::render(input, quiet = TRUE))
+    # write(c("---", "title: Example Document", "author: Filip", "output: pdf_document", "---\n", rest), file = input)
+    # expect_error(rmarkdown::render(input, quiet = TRUE))
 
   })
 

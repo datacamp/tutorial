@@ -23,9 +23,9 @@ go_interactive <- function(greedy = TRUE) {
   tutorial$clear()
   tutorial$set(greedy = greedy)
 
-  out_type <- knitr::opts_knit$get("out.format")
-  if (!length(intersect(out_type, c("markdown", "html"))))
-    stop("DataCamp Light is for HTML only.")
+  # out_type <- knitr::opts_knit$get("out.format")
+  # if (!length(intersect(out_type, c("markdown", "html"))))
+  #   stop("DataCamp Light is for HTML only.")
 
   knitr::opts_hooks$set(eval = function(options) {
     if (tut_active(options)) {
