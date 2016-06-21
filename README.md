@@ -4,7 +4,7 @@
 [![codecov.io](https://codecov.io/github/datacamp/tutorial/coverage.svg?branch=master)](https://codecov.io/github/datacamp/tutorial?branch=master)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/tutorial)](http://cran.r-project.org/package=tutorial)
 
-`knitr` utility to convert your static code chunks into a R/Python editor where people can experiment. Powered by [DataCamp Light](https://www.github.com/datacamp/datacamp-light), a lightweight version of DataCamp's learning interface.
+`knitr` utility to convert your static code chunks into an R editor where people can experiment. Powered by [DataCamp Light](https://www.github.com/datacamp/datacamp-light), a lightweight version of DataCamp's learning interface.
 
 ## Installing the package
 
@@ -123,6 +123,10 @@ You can embed DataCamp Light in your package's vignettes by specifying the `ex` 
     ```{r, include = FALSE}
     tutorial::go_interactive()
     ```
+
+## Support for Python
+
+It will soon be available to use the functionality in `tutorial` to create HTML files that feature an interactive Python environment.
 
 ## Other Documentation
 

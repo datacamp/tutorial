@@ -30,8 +30,7 @@ go_interactive <- function(greedy = TRUE) {
   knitr::opts_hooks$set(eval = function(options) {
     if (tut_active(options)) {
       options$eval <- FALSE
-    } else {
-      options$eval <- TRUE
+      options$echo <- TRUE
     }
     options
   })

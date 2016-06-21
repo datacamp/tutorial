@@ -7,15 +7,16 @@ sample1 <- "```{r, ex='test', type=\"sample-code\"}\n# sample\n```\n"
 sample1_no_type <- "```{r, ex='test'}\n# sample\n```\n"
 solution1 <- "```{r, ex='test', type=\"solution\"}\n# solution\n```\n"
 sct1 <- "```{r, ex='test', type=\"sct\"}\n# sct\n```\n"
+hint1 <- "```{r, ex='test', type=\"hint\"}\nHere's a hint\n```\n"
 text2 <- "text with code block\n\n```{r}\nhead(mtcars)\n```\n"
 
-doc1 <- spaste(header, start, text1, pec1, sample1, solution1, sct1, text2)
-doc2 <- spaste(header, start, text1, sample1, pec1, solution1, sct1, text2)
-doc3 <- spaste(header, start, text1, sample1, solution1, pec1, sct1, text2)
-doc4 <- spaste(header, start, text1, sample1, solution1, sct1, pec1, text2)
-doc5 <- spaste(header, start, text1, sample1, text2, solution1, sct1, pec1)
-doc6 <- spaste(header, start, text1, sample1, solution1, text2, sct1, pec1)
-doc7 <- spaste(header, start, text1, sample1, solution1, sct1, text2, pec1)
+doc1 <- spaste(header, start, text1, pec1, sample1, solution1, sct1, hint1, text2)
+doc2 <- spaste(header, start, text1, sample1, pec1, solution1, sct1, hint1, text2)
+doc3 <- spaste(header, start, text1, sample1, solution1, pec1, sct1, hint1, text2)
+doc4 <- spaste(header, start, text1, sample1, solution1, sct1, pec1, hint1, text2)
+doc5 <- spaste(header, start, text1, sample1, text2, solution1, sct1, hint1, pec1)
+doc6 <- spaste(header, start, text1, sample1, solution1, text2, sct1, hint1, pec1)
+doc7 <- spaste(header, start, text1, sample1, solution1, sct1, text2, hint1, pec1)
 
 # incorrect ones
 doc8 <- spaste(doc7, "```{r, ex='test', type=\"retteketet\", eval = FALSE}\n# solution\n```\n")
