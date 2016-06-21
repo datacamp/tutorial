@@ -2,7 +2,6 @@
 
 export(build_example)
 export(go_interactive)
-export(tutorial)
 importFrom(base64enc,base64encode)
 importFrom(knitr,knit_hooks)
 importFrom(knitr,opts_hooks)

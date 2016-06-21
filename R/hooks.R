@@ -88,7 +88,7 @@ replace_elements <- function(x) {
     for (block in blocks) {
       if (!all(required_elements %in% names(block$els))) {
         stop(sprintf("%s does not contain all required elements. You need %s",
-                     block$ex, collapse(required_elements)), paste(capture.output(str(blocks)), collapse = "\n"))
+                     block$ex, collapse(required_elements)))
       }
       if (!all(names(block$els) %in% allowed_elements)) {
         stop(sprintf("%s contains elements that are not understood by %s.",

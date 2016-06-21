@@ -9,6 +9,6 @@ build_example()
 \description{
 Create the file \code{example.Rmd} in your current working directory.
 This R Markdown files contains example code chunks that can be converted to
-an R interactive exercise with the \code{\link{render}} function.
+interactive R playgrounds.
 }
 

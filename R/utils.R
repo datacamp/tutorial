@@ -82,5 +82,4 @@ merge_list = function(x, y) {
   x
 }
 
-#' @export
 tutorial <- tutorial_accessors()
