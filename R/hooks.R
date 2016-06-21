@@ -36,6 +36,7 @@ go_interactive <- function(greedy = TRUE) {
   })
 
   tutorial$set(default_source_hook = knitr::knit_hooks$get("source"))
+  tutorial$set(default_document_hook = knitr::knit_hooks$get("document"))
   knitr::knit_hooks$set(source = extract_elements,
                         document = replace_elements)
 }
@@ -73,7 +74,6 @@ extract_elements <- function(x, options) {
     blocks[[ex]]$els[[type]] <- paste(x, collapse = "\n")
     tutorial$set(blocks = blocks)
 
-    # return(paste(c("```", capture.output(str(blocks)), "```"), collapse = "\n"))
     return(key)
   } else {
     tutorial$get("default_source_hook")(x, options)
@@ -102,5 +102,5 @@ replace_elements <- function(x) {
     x
   }
 
-  return(x)
+  return(tutorial$get("default_document_hook")(x))
 }
