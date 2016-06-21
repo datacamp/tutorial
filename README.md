@@ -10,7 +10,7 @@
 
 Latest released version from CRAN
 
-```
+```R
 install.packages("tutorial")
 ```
 
