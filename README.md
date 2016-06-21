@@ -57,7 +57,7 @@ If you render an R Markdown document like this:
     tutorial::go_interactive()
     ```
     
-    If you specify the `ex` property, `tutorial` knows what to do.
+    By default, `tutorial` will convert all R chunks.
 
     ```{r}
     a <- 2
@@ -67,8 +67,6 @@ If you render an R Markdown document like this:
     ```
 
 An HTML file results that features an in-browser R editor with a session attached to it, where you can [experiment](https://cran.r-project.org/web/packages/tutorial/vignettes/tutorial-basics.html#fiddles).
-
-![html_file](https://s3.amazonaws.com/assets.datacamp.com/img/github/content-engineering-repos/tutorial_html_file.png)
 
 ### Coding challenges
 
@@ -101,9 +99,7 @@ You can also embed coding challenges into your webpages. This group of code chun
     success_msg("Great!")
     ```
     
-Converts to the following DataCamp Light exercise ([experiment with it](https://cran.r-project.org/web/packages/tutorial/vignettes/tutorial-basics.html#interactive-exercises)):
-
-![start](https://s3.amazonaws.com/assets.datacamp.com/img/github/content-engineering-repos/tutorial1_start.png)
+Converts to the following DataCamp Light exercise ([experiment with it](https://cran.r-project.org/web/packages/tutorial/vignettes/tutorial-basics.html#interactive-exercises)).
 
 ### Vignettes
 

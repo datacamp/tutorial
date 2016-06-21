@@ -55,7 +55,7 @@ To convert your static code chunk from before into a fiddle to experiment, you h
     
 If you now render your R Markdown file, the resulting HTML file will contain an iframe:
 
-```{r eval = FALSE, include = FALSE, ex="play_around"}
+```{r}
 a <- 2
 b <- 3
 ```
@@ -111,18 +111,17 @@ Next to fiddles, you can also code up entire interactive exercises with DataCamp
     
     ```{r ex="create_a", type="sct"}
     test_object("a")
-    test_output_contains("a", incorrect_msg = "Make sure to print `a`")
+    test_output_contains("a", incorrect_msg = "Make sure to print out `a`.")
     success_msg("Great!")
     ```
     
 Converts to the following DataCamp Light exercise:
 
-```{r eval = FALSE, include = FALSE, ex="create_a", type="pre-exercise-code"}
-# This code is available in the workspace when the session initializes
+```{r ex="create_a", type="pre-exercise-code"}
 b <- 5
 ```
 
-```{r eval = FALSE, include = FALSE, ex="create_a", type="sample-code"}
+```{r ex="create_a", type="sample-code"}
 # Create a variable a, equal to 5
 
 
@@ -130,7 +129,7 @@ b <- 5
 
 ```
 
-```{r eval = FALSE, include = FALSE, ex="create_a", type="solution"}
+```{r ex="create_a", type="solution"}
 # Create a variable a, equal to 5
 a <- 5
 
@@ -138,14 +137,10 @@ a <- 5
 a
 ```
 
-```{r eval = FALSE, include = FALSE, ex="create_a", type="sct"}
+```{r ex="create_a", type="sct"}
 test_object("a")
-test_output_contains("a", incorrect_msg = "Make sure to print `a`")
+test_output_contains("a", incorrect_msg = "Make sure to print out `a`.")
 success_msg("Great!")
-```
-
-```{r eval = FALSE, include = FALSE, ex="create_a", type="hint"}
-Here is a hint: use `<-` for assignment
 ```
 
 The `pre-exercise-code` initializes the R session. The `sample-code` is the fill-in form to start from, The `solution` specifies the solution, and finally `sct` stands for Submission Correctness Test. These tests to check whether the student submitted the correct code, can be written with the functions from the [`testwhat`](https://www.github.com/datacamp/testwhat) package.
