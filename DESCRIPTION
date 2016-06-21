@@ -13,6 +13,7 @@ Description: DataCamp Light (<https://github.com/datacamp/datacamp-light>) is a 
 License: MIT + file LICENSE
 LazyData: TRUE
 Imports:
+    markdown,
     knitr,
     rjson,
     base64enc
