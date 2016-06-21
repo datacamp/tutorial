@@ -22,5 +22,4 @@ Suggests:
     rmarkdown
 SystemRequirements: pandoc (>= 1.12.3) - http://johnmacfarlane.net/pandoc
 RoxygenNote: 5.0.1
-VignetteBuilder: tutorial,
-    knitr
+VignetteBuilder: knitr
