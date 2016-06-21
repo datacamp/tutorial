@@ -18,8 +18,9 @@ render_exercise <- function(els, lang, encoded) {
               hint = "hint")
     names(els) <- dict[names(els)]
     encoded <- base64encode(charToRaw(toJSON(els)))
-    patt <- "<div data-datacamp-exercise data-lang=\"%s\" data-encoded=\"true\">%s</div>"
-    return(sprintf(patt, lang, encoded))
+    pre <- "<script src=\"https://cdn.datacamp.com/datacamp-light-1.0.0.min.js\"></script>\n"
+    patt <- "%s<div data-datacamp-exercise data-lang=\"%s\" data-encoded=\"true\">%s</div>"
+    return(sprintf(patt, pre, lang, encoded))
   } else {
     html <- sprintf("<div data-datacamp-exercise data-lang=\"%s\">", lang)
     for (j in seq_along(els)) {

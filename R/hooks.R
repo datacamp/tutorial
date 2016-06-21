@@ -99,7 +99,7 @@ replace_elements <- function(x) {
                               encoded = TRUE)
       x[x == sprintf("dc_light_exercise_%s", block$ex)] <- html
     }
-    x <- c("<script src=\"https://cdn.datacamp.com/datacamp-light-1.0.0.min.js\"></script>\n", x)
+    x
   }
 
   return(x)
