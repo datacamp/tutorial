@@ -1,6 +1,6 @@
 
 header <- '---\ntitle: "Example Document"\nauthor: "Your name here"\noutput: html_document\n---\n\n'
-start <- "```{r, include = FALSE}\ntutorial::go_interactive()\n```\n"
+start <- "```{r, include=FALSE}\ntutorial::go_interactive()\n```\n"
 text1 <- "this is a test\n"
 pec1 <- "```{r, ex='test', type='pre-exercise-code'}\n# pec\n```\n"
 sample1 <- "```{r, ex='test', type=\"sample-code\"}\n# sample\n```\n"

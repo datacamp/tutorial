@@ -120,7 +120,7 @@ You can power your package's vignettes with DataCamp Light by adding the same li
       %\VignetteEncoding{UTF-8}
     ---
 
-    ```{r, include = FALSE}
+    ```{r, include=FALSE}
     tutorial::go_interactive()
     ```
     
