@@ -5,13 +5,13 @@
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/tutorial)](http://cran.r-project.org/package=tutorial)
 [![](http://cranlogs.r-pkg.org/badges/tutorial)](http://cran.rstudio.com/web/packages/tutorial/index.html)
 
-Wrapper around `knitr` to convert your static code chunks into a R/Python editor where people can experiment. Powered by [DataCamp Light](https://www.github.com/datacamp/datacamp-light), a lightweight version of DataCamp's learning interface.
+`knitr` utility to convert your static code chunks into an R editor where people can experiment. Powered by [DataCamp Light](https://www.github.com/datacamp/datacamp-light), a lightweight version of DataCamp's learning interface.
 
 ## Installing the package
 
 Latest released version from CRAN
 
-```
+```R
 install.packages("tutorial")
 ```
 
@@ -26,11 +26,19 @@ devtools::install_github("datacamp/tutorial")
 
 ## Getting started
 
+Add the following chunk at the top of your R Markdown document
+
+    ```{r, include=FALSE}
+    tutorial::go_interactive()
+    ```
+
+Knit your document: in RStudio, simply hit "Knit HTML", or use
+
 ```R
-library(tutorial)
-build_example()
-render("example.Rmd")
+rmarkdown::render("path_to_my_file", output_format = "html_document")
 ```
+
+_NOTE: DataCamp Light is not supported in RStudio's HTML viewer; you have to click 'Open in Browser' to see your DataCamp Light chunks in action._
 
 ## How it works
 
@@ -38,7 +46,7 @@ R vignettes, blog posts and teaching material are typically standard web pages g
 
 ### Fiddles
 
-With `tutorial::render()`, you turn an R Markdown document like this:   
+If you render an R Markdown document like this:   
 
     ---
     title: "Example Document"
@@ -46,25 +54,28 @@ With `tutorial::render()`, you turn an R Markdown document like this:
     output: html_document
     ---
 
-    If you specify the `ex` property, `tutorial` knows what to do.
+    ```{r, include=FALSE}
+    tutorial::go_interactive()
+    ```
+    
+    By default, `tutorial` will convert all R chunks.
 
-    ```{r, ex="play_around"}
+    ```{r}
     a <- 2
     b <- 3
 
     a + b
     ```
 
-Into an HTML file that features an in-browser R editor with a session attached to it, where you can [experiment](https://cran.r-project.org/web/packages/tutorial/vignettes/tutorial-basics.html#fiddles).
+An HTML file results that features an in-browser R editor with a session attached to it, where you can [experiment](https://cran.r-project.org/web/packages/tutorial/vignettes/tutorial-basics.html#fiddles).
 
-![html_file](https://s3.amazonaws.com/assets.datacamp.com/img/github/content-engineering-repos/tutorial_html_file.png)
+![html_file](https://s3.amazonaws.com/assets.datacamp.com/img/github/content-engineering-repos/tutorial_fiddle.png)
 
 ### Coding challenges
 
 You can also embed coding challenges into your webpages. This group of code chunks:
 
     ```{r ex="create_a", type="pre-exercise-code"}
-    # This code is available in the workspace when the session initializes
     b <- 5
     ```
     
@@ -86,18 +97,17 @@ You can also embed coding challenges into your webpages. This group of code chun
     
     ```{r ex="create_a", type="sct"}
     test_object("a")
-    test_output_contains("a", incorrect_msg = "Make sure to print `a`")
+    test_output_contains("a", incorrect_msg = "Make sure to print `a`.")
     success_msg("Great!")
     ```
     
+Converts to the following DataCamp Light exercise ([experiment with it](https://cran.r-project.org/web/packages/tutorial/vignettes/tutorial-basics.html#interactive-exercises)).
 
-Converts to the following DataCamp Light exercise ([experiment with it](https://cran.r-project.org/web/packages/tutorial/vignettes/tutorial-basics.html#interactive-exercises)):
-
-![start](https://s3.amazonaws.com/assets.datacamp.com/img/github/content-engineering-repos/tutorial1_start.png)
+![html_file](https://s3.amazonaws.com/assets.datacamp.com/img/github/content-engineering-repos/tutorial_exercise.png)
 
 ### Vignettes
 
-You can embed DataCamp Light in your package's vignettes by specifying the `ex` and `type` chunk options as usual, and adapting the vignette header
+You can power your package's vignettes with DataCamp Light by adding the same line to the top of your vignette:
 
     ---
     title: "Tutorial Basics"
@@ -106,20 +116,24 @@ You can embed DataCamp Light in your package's vignettes by specifying the `ex` 
     output: rmarkdown::html_vignette
     vignette: >
       %\VignetteIndexEntry{Tutorial Basics}
-      %\VignetteEngine{tutorial::tutorial}
+      %\VignetteEngine{knitr::rmarkdown}
       %\VignetteEncoding{UTF-8}
     ---
 
-as well as updating the `VignetteBuilder` in your DESCRIPTION file:
-
-    VignetteBuilder: tutorial
+    ```{r, include = FALSE}
+    tutorial::go_interactive()
+    ```
     
-A function to do this conversion (adapt the chunks, vignette headers and DESCRIPTION file) will be added soon.
+    _remainder of vignette omitted_
+
+## Support for Python
+
+It will soon be available to use the functionality in `tutorial` to create HTML files that feature an interactive Python environment.
 
 ## Other Documentation
 
 - [Tutorial Basics Vignette](https://cran.r-project.org/web/packages/tutorial/vignettes/tutorial-basics.html): explanation on how to convert your static R code chunks into interactive fiddles or exercises, where you can also experiment with DataCamp Light itself.
-- [R Markdown](http://rmarkdown.rstudio.com/) and [knitr](http://yihui.name/knitr/) for dynamic documents with R. To ensure backwards compatibility with systems that don't feature the `tutorial` package, you can include `eval = FALSE, include = FALSE` at the beginning of all code chunks. In that case, R Markdown files can be rendered to HTML files without problems; the interactive exercises simply will not be included.
+- [R Markdown](http://rmarkdown.rstudio.com/) and [knitr](http://yihui.name/knitr/) for dynamic documents with R.
 - [DataCamp Light JS library](https://www.github.com/datacamp/datacamp-light)
 - [Course creation for DataCamp](https://www.datacamp.com/teach/documentation). The documentation includes information on how to get started with course creation, what the different components of an exercise are, how you can write Submission Correctness Tests (SCTs) etc.
 

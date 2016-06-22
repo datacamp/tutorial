@@ -4,9 +4,13 @@ author: "Your name here"
 output: html_document
 ---
 
+```{r, include = FALSE}
+tutorial::go_interactive()
+```
+
 You can use the `tutorial` package to convert static code chunks into 'fiddles', i.e. editors where people can experiment with your code. If you specify the `ex` and `type` properties, `tutorial` knows what to do:
 
-```{r, ex="play_around", type="sample-code"}
+```{r}
 a <- 2
 b <- 3
 
@@ -15,12 +19,11 @@ a + b
 
 You can also create interactive exercises right inside your R Markdown document. Suppose you want to explain people how variable assignment works in R. Create an exercise with a certain identifier, `create_a` in this case. Then, in different R code chunks, specify the elements of the exercise by setting the `type` inside the code chunk options.
 
-```{r, ex="create_a", type="pre-exercise-code"}
-# This code is available in the workspace when the session initializes
+```{r ex="create_a", type="pre-exercise-code"}
 b <- 5
 ```
 
-```{r, ex="create_a", type="sample-code"}
+```{r ex="create_a", type="sample-code"}
 # Create a variable a, equal to 5
 
 
@@ -28,7 +31,7 @@ b <- 5
 
 ```
 
-```{r, ex="create_a", type="solution"}
+```{r ex="create_a", type="solution"}
 # Create a variable a, equal to 5
 a <- 5
 
@@ -36,39 +39,9 @@ a <- 5
 a
 ```
 
-```{r, ex="create_a", type="sct"}
+```{r ex="create_a", type="sct"}
 test_object("a")
-test_output_contains("a", incorrect_msg = "Make sure to print `a`")
+test_output_contains("a", incorrect_msg = "Make sure to print `a`.")
 success_msg("Great!")
 ```
-
-```{r, ex="create_a", type="hint"}
-Here is a hint: use `<-` for assignment
-```
-
-DataCamp Light also supports Python exercises. Let's create an exercise with a certain identifier, `create_b` in this case. Then, in different Python code chunks, specify the elements of the exercise by setting the `type` inside the code chunk options.
-
-```{python, ex="create_b", type="pre-exercise-code"}
-```
-
-```{python, ex="create_b", type="sample-code"}
-# Create a variable b, equal to 4
-
-```
-
-```{python, ex="create_b", type="solution"}
-# Create a variable b, equal to 4
-b = 4
-```
-
-```{python, ex="create_b", type="sct"}
-test_object("b")
-success_msg("Great!")
-```
-
-```{python, ex="create_b", type="hint"}
-Here is a hint: use `=` for assignment.
-```
-
-Have fun teaching!
 

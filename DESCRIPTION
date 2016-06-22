@@ -14,12 +14,12 @@ License: MIT + file LICENSE
 LazyData: TRUE
 Imports:
     markdown,
-    rmarkdown,
     knitr,
     rjson,
     base64enc
 Suggests:
-    testthat
+    testthat,
+    rmarkdown
 SystemRequirements: pandoc (>= 1.12.3) - http://johnmacfarlane.net/pandoc
 RoxygenNote: 5.0.1
-VignetteBuilder: tutorial
+VignetteBuilder: knitr

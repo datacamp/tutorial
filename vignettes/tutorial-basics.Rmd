@@ -4,46 +4,65 @@ author: "Filip Schouwenaars"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Tutorial Basics}
-  %\VignetteEngine{tutorial::tutorial}
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-The `tutorial` package by [DataCamp](https://www.datacamp.com) is a wrapper around `knitr` that is able to convert your static code chunks into a R/Python editor where people can experiment. This is done with the help of [DataCamp Light](https://www.github.com/datacamp/datacamp-light), a JavaScript library that converts HTML chunks with the proper formatting into iframes that house an interactive R or Python session.
+```{r, include = FALSE}
+tutorial::go_interactive()
+```
+
+The `tutorial` package by [DataCamp](https://www.datacamp.com) is a utility for `knitr` that is able to convert your static code chunks into an R editor where people can experiment. This is done with the help of [DataCamp Light](https://www.github.com/datacamp/datacamp-light), a JavaScript library that converts HTML chunks with the proper formatting into iframes that house an interactive R session.
 
 This vignette will discuss two ways of using the `tutorial` package: to create interactive 'fiddles' and to create fully-fledged coding exercise right inside your browser.
 
 ## Fiddles
 
-Suppose you coded an R code example in R Markdown as follows:
+Suppose you have a basic R Markdown file that looks as follows:
 
-    ```{r eval = FALSE}
+    ---
+    title: "Example Document"
+    author: "Your name here"
+    output: html_document
+    ---
+
+    You can create variables with `<-`:
+    
+    ```{r}
     a <- 2
     b <- 3
     ```
 
-You can convert this code chunk into a fiddle to experiment. Simply specify an `ex` identifier:
+To convert your static code chunk from before into a fiddle to experiment, you have to tell `knitr` to use `tutorial`:
 
-    ```{r ex="play_around"}
+    ---
+    title: "Example Document"
+    author: "Your name here"
+    output: html_document
+    ---
+
+    ```{r, include = FALSE}
+    tutorial::go_interactive()
+    ```
+    
+    You can create variables with `<-`:
+
+    ```{r}
     a <- 2
     b <- 3
     ```
     
-and then call the render function on your R markdown file:
+If you now render your R Markdown file, the resulting HTML file will contain an iframe:
 
-```{r eval = FALSE}
-library(tutorial)
-tutorial::render("my_doc.Rmd")
-```
-
-The resulting HTML file will contain an iframe that looks like this, where people can experiment. On the left, there is a script editor. When you hit Run, your code is executed in the console. You can also directly experiment inside this console.
-
-```{r eval = FALSE, include = FALSE, ex="play_around"}
+```{r}
 a <- 2
 b <- 3
 ```
 
-To not clutter the code example, you might want to pre-load some data or load some packages beforehand. You can do this by specifying a chunk with `type = 'pre-exercise-code'`. Make sure you specify the same `ex` label to tie the two code blocks together:
+On the left, there is a script editor. When you hit Run, your code is executed in the console. You can also directly experiment inside this console.
+
+To not clutter the code example, you might want to pre-load some data or load some packages beforehand. You can do this by specifying a chunk with `type = 'pre-exercise-code'`. You need both `ex` and `type` options in your chunk objects to tie the two code chunks together:
 
     ```{r ex="play_around", type="pre-exercise-code"}
     c <- 4
@@ -54,7 +73,18 @@ To not clutter the code example, you might want to pre-load some data or load so
     a <- 2
     b <- 3
     ```
-    
+
+```{r ex="play_around", type="pre-exercise-code"}
+c <- 4
+library(stringr)
+```
+
+```{r ex="play_around", type="sample-code"}
+a <- 2
+b <- 3
+```
+
+
 ## Interactive exercises
 
 Next to fiddles, you can also code up entire interactive exercises with DataCamp Light. This group of code chunks:
@@ -81,18 +111,17 @@ Next to fiddles, you can also code up entire interactive exercises with DataCamp
     
     ```{r ex="create_a", type="sct"}
     test_object("a")
-    test_output_contains("a", incorrect_msg = "Make sure to print `a`")
+    test_output_contains("a", incorrect_msg = "Make sure to print out `a`.")
     success_msg("Great!")
     ```
-    
-Converts to the following DataCamp Light exercise. The `pre-exercise-code` initializes the R session. The `sample-code` is the fill-in form to start from, The `solution` specifies the solution, and finally `sct` stands for Submission Correctness Test. These tests to check whether the student submitted the correct code, can be written with the functions from the [`testwhat`](https://www.github.com/datacamp/testwhat) package.
+   
+Converts to the following DataCamp Light exercise:
 
-```{r eval = FALSE, include = FALSE, ex="create_a", type="pre-exercise-code"}
-# This code is available in the workspace when the session initializes
+```{r ex="create_a", type="pre-exercise-code"}
 b <- 5
 ```
 
-```{r eval = FALSE, include = FALSE, ex="create_a", type="sample-code"}
+```{r ex="create_a", type="sample-code"}
 # Create a variable a, equal to 5
 
 
@@ -100,7 +129,7 @@ b <- 5
 
 ```
 
-```{r eval = FALSE, include = FALSE, ex="create_a", type="solution"}
+```{r ex="create_a", type="solution"}
 # Create a variable a, equal to 5
 a <- 5
 
@@ -108,15 +137,13 @@ a <- 5
 a
 ```
 
-```{r eval = FALSE, include = FALSE, ex="create_a", type="sct"}
+```{r ex="create_a", type="sct"}
 test_object("a")
-test_output_contains("a", incorrect_msg = "Make sure to print `a`")
+test_output_contains("a", incorrect_msg = "Make sure to print out `a`.")
 success_msg("Great!")
 ```
 
-```{r eval = FALSE, include = FALSE, ex="create_a", type="hint"}
-Here is a hint: use `<-` for assignment
-```
+The `pre-exercise-code` initializes the R session. The `sample-code` is the fill-in form to start from, The `solution` specifies the solution, and finally `sct` stands for Submission Correctness Test. These tests to check whether the student submitted the correct code, can be written with the functions from the [`testwhat`](https://www.github.com/datacamp/testwhat) package.
 
 For more examples on these DataCamp Light exercises, you can visit the text versions of DataCamp's free introduction to R course:
 
@@ -127,18 +154,3 @@ For more examples on these DataCamp Light exercises, you can visit the text vers
 - [Chapter 5: Data Frames](https://www.datacamp.com/courses/free-introduction-to-r/chapter-5-data-frames-r)
 - [Chapter 6: Lists](https://www.datacamp.com/courses/free-introduction-to-r/chapter-6-lists-r)
 
-## Python
-
-Although it is somewhat strange to code up Python examples and exercises inside R Markdown, this is perfectly possible; simply replace the `r` in the chunk specification:
-
-```
-```{r ex="play_around", type="sample-code"}
-```
-
-with `python`:
-
-```
-```{python ex="play_around", type="sample-code"}
-```
-
-For writing Submission Correctness tests, you can use the [`pythonwhat`](https://www.github.com/datacamp/pythonwhat) package, `testwhat`'s counterpart for Python exercises.
