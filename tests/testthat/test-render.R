@@ -8,7 +8,7 @@ sample1_no_type <- "```{r, ex='test'}\n# sample\n```\n"
 solution1 <- "```{r, ex='test', type=\"solution\"}\n# solution\n```\n"
 sct1 <- "```{r, ex='test', type=\"sct\"}\n# sct\n```\n"
 hint1 <- "```{r, ex='test', type=\"hint\"}\nHere's a hint\n```\n"
-text2 <- "text with code block\n\n```{r}\nhead(mtcars)\n```\n"
+text2 <- "text with code block\n\n```{r tut=FALSE}\nhead(mtcars)\n```\n"
 
 doc1 <- spaste(header, start, text1, pec1, sample1, solution1, sct1, hint1, text2)
 doc2 <- spaste(header, start, text1, sample1, pec1, solution1, sct1, hint1, text2)
@@ -30,7 +30,7 @@ library(rjson)
 library(base64enc)
 extract_parts <- function(file) {
   html <- readLines(file)
-  before_ind <- which(html == "<div data-datacamp-exercise data-lang=\"r\" data-encoded=\"true\">")
+  before_ind <- grep("<div data-datacamp-exercise data-lang=\"r\" .*? data-encoded=\"true\">", html)
   if (length(before_ind) == 0) {
     return(NULL)
   } else {
