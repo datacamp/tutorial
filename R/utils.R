@@ -30,19 +30,6 @@ to_html <- function(x) {
   html
 }
 
-check_output_format <- function(file) {
-  output_format <- try(rmarkdown::all_output_formats(file))
-  if (is.null(output_format)) output_format <- "html_document"
-  if (inherits(output_format, "try-error")) {
-    file.remove(file)
-    stop("Make sure the YAML header contains no errors. Beware of erroneous indentation.")
-  }
-  if (!grepl("html_", output_format)) {
-    file.remove(file)
-    stop("Make sure to specify an HTML output format in the YAML header of your Markdown file.")
-  }
-}
-
 msg <- function(msg, quiet) {
   if (is.logical(quiet) && !quiet) {
     message(msg)

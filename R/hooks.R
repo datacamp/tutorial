@@ -95,8 +95,7 @@ replace_elements <- function(x) {
                      block$ex, project_alias))
       }
       html <- render_exercise(els = block$els,
-                              lang = block$lang,
-                              encoded = TRUE)
+                              lang = block$lang)
       x[x == sprintf("dc_light_exercise_%s", block$ex)] <- html
     }
     x
