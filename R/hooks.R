@@ -16,20 +16,17 @@
 #'
 #' @param greedy whether or not to 'greedily' convert code chunks into DataCamp
 #'   Light frames.
-#' @param min_height minimum height of the resulting iframe
-#' @param max_height maximum height of the resulting iframe
+#' @param height height in pixels that you want the resulting DataCamp Light
+#'   frame to have.
 #'
 #' @importFrom knitr opts_knit knit_hooks opts_hooks
 #' @export
-go_interactive <- function(greedy = TRUE, min_height = 300, max_height = 500) {
+go_interactive <- function(greedy = TRUE, height = 250) {
   tutorial$clear()
   tutorial$set(greedy = greedy)
-  tutorial$set(min_height = min_height)
-  tutorial$set(max_height = max_height)
 
-  # out_type <- knitr::opts_knit$get("out.format")
-  # if (!length(intersect(out_type, c("markdown", "html"))))
-  #   stop("DataCamp Light is for HTML only.")
+  stopifnot(is.numeric(height))
+  tutorial$set(height = height)
 
   knitr::opts_hooks$set(eval = function(options) {
     if (tut_active(options)) {
@@ -56,26 +53,32 @@ tut_active <- function(options) {
 extract_elements <- function(x, options) {
   if(tut_active(options)) {
 
-    blocks <- tutorial$get("blocks")
-    lang <- tolower(options$engine)
-
     ex <- options[["ex"]]
-    if(is.null(ex)) ex <- options$label
+    if (is.null(ex)) ex <- options$label
 
-    type <- options[["type"]]
-    if(is.null(type)) type <- "sample-code"
-
+    blocks <- tutorial$get("blocks")
     if (!(ex %in% names(blocks))) {
+      lang <- tolower(options$engine)
       key <- sprintf("dc_light_exercise_%s", ex)
       blocks[[ex]] <- list(lang = lang,
+                           height = NULL,
                            els = list(),
                            ex = ex,
                            key = key)
     } else {
+      # key is already in there
       key <- NULL
     }
 
+    type <- options[["type"]]
+    if (is.null(type)) type <- "sample-code"
     blocks[[ex]]$els[[type]] <- paste(x, collapse = "\n")
+
+    height <- options[["height"]]
+    if (!is.null(height)) {
+      blocks[[ex]]$height <- height
+    }
+
     tutorial$set(blocks = blocks)
 
     return(key)
@@ -98,10 +101,7 @@ replace_elements <- function(x) {
         stop(sprintf("%s contains elements that are not understood by %s.",
                      block$ex, project_alias))
       }
-      html <- render_exercise(els = block$els,
-                              lang = block$lang,
-                              min_height = tutorial$get("min_height"),
-                              max_height = tutorial$get("max_height"))
+      html <- render_exercise(block, default_height = tutorial$get("height"))
       x[x == sprintf("dc_light_exercise_%s", block$ex)] <- html
     }
     x

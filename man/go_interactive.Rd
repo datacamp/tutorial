@@ -4,15 +4,14 @@
 \alias{go_interactive}
 \title{Set up your R Markdown document to use DataCamp light}
 \usage{
-go_interactive(greedy = TRUE, min_height = 300, max_height = 500)
+go_interactive(greedy = TRUE, height = 250)
 }
 \arguments{
 \item{greedy}{whether or not to 'greedily' convert code chunks into DataCamp
 Light frames.}
 
-\item{min_height}{minimum height of the resulting iframe}
-
-\item{max_height}{maximum height of the resulting iframe}
+\item{height}{height in pixels that you want the resulting DataCamp Light
+frame to have.}
 }
 \description{
 Enable hooks and parsing utilities so that special code chunks where the
