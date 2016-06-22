@@ -16,12 +16,16 @@
 #'
 #' @param greedy whether or not to 'greedily' convert code chunks into DataCamp
 #'   Light frames.
+#' @param min_height minimum height of the resulting iframe
+#' @param max_height maximum height of the resulting iframe
 #'
 #' @importFrom knitr opts_knit knit_hooks opts_hooks
 #' @export
-go_interactive <- function(greedy = TRUE) {
+go_interactive <- function(greedy = TRUE, min_height = 300, max_height = 500) {
   tutorial$clear()
   tutorial$set(greedy = greedy)
+  tutorial$set(min_height = min_height)
+  tutorial$set(max_height = max_height)
 
   # out_type <- knitr::opts_knit$get("out.format")
   # if (!length(intersect(out_type, c("markdown", "html"))))
@@ -95,7 +99,9 @@ replace_elements <- function(x) {
                      block$ex, project_alias))
       }
       html <- render_exercise(els = block$els,
-                              lang = block$lang)
+                              lang = block$lang,
+                              min_height = tutorial$get("min_height"),
+                              max_height = tutorial$get("max_height"))
       x[x == sprintf("dc_light_exercise_%s", block$ex)] <- html
     }
     x
