@@ -30,13 +30,6 @@ to_html <- function(x) {
   html
 }
 
-msg <- function(msg, quiet) {
-  if (is.logical(quiet) && !quiet) {
-    message(msg)
-  }
-}
-
-
 tutorial_accessors <- function() {
   dc_data <- list()
 
