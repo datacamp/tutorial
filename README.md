@@ -3,7 +3,7 @@
 [![Build Status](https://api.travis-ci.org/datacamp/tutorial.svg?branch=master)](https://travis-ci.org/datacamp/tutorial)
 [![codecov.io](https://codecov.io/github/datacamp/tutorial/coverage.svg?branch=master)](https://codecov.io/github/datacamp/tutorial?branch=master)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/tutorial)](http://cran.r-project.org/package=tutorial)
-[![](http://cranlogs.r-pkg.org/badges/tutorial)](http://cran.rstudio.com/web/packages/tutorial/index.html)
+[![](http://cranlogs.r-pkg.org/badges/tutorial)](https://cran.r-project.org/web/packages/tutorial/index.html)
 
 `knitr` utility to convert your static code chunks into an R editor where people can experiment. Powered by [DataCamp Light](https://www.github.com/datacamp/datacamp-light), a lightweight version of DataCamp's learning interface.
 
