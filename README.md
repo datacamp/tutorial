@@ -128,7 +128,7 @@ You can power your package's vignettes with DataCamp Light by adding the same li
 
 ## Support for Python
 
-It will soon be available to use the functionality in `tutorial` to create HTML files that feature an interactive Python environment.
+You'll soon be able to use `tutorial` to create HTML files that feature an interactive Python environment.
 
 ## Other Documentation
 
