@@ -12,3 +12,6 @@ There were no errors, no notes, no warnings
 
 There are no packages depending on this package yet.
 
+## Other notes
+
+Updated the link in README.md to have a canonical CRAN URL
