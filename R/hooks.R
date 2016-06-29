@@ -46,7 +46,7 @@ go_interactive <- function(greedy = TRUE, height = 250) {
       if (!(ex %in% names(blocks))) {
         lang <- tolower(options$engine)
         key <- sprintf("dc_light_exercise_%s", ex)
-        blocks[[ex]] <- list(lang = lang,
+        blocks[[ex]] <<- list(lang = lang,
                              height = NULL,
                              els = list(),
                              ex = ex,
@@ -58,14 +58,12 @@ go_interactive <- function(greedy = TRUE, height = 250) {
 
       type <- options[["type"]]
       if (is.null(type)) type <- "sample-code"
-      blocks[[ex]]$els[[type]] <- paste(x, collapse = "\n")
+      blocks[[ex]]$els[[type]] <<- paste(x, collapse = "\n")
 
       height <- options[["height"]]
       if (!is.null(height)) {
-        blocks[[ex]]$height <- height
+        blocks[[ex]]$height <<- height
       }
-
-      blocks <<- blocks
 
       return(key)
     } else {
