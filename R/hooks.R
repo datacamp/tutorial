@@ -22,90 +22,83 @@
 #' @importFrom knitr opts_knit knit_hooks opts_hooks
 #' @export
 go_interactive <- function(greedy = TRUE, height = 250) {
-  tutorial$clear()
-  tutorial$set(greedy = greedy)
 
+  stopifnot(is.logical(greedy))
   stopifnot(is.numeric(height))
-  tutorial$set(height = height)
+
+  default_source_hook <- knitr::knit_hooks$get("source")
+  default_document_hook <- knitr::knit_hooks$get("document")
+  blocks <- NULL
 
   knitr::opts_hooks$set(eval = function(options) {
-    if (tut_active(options)) {
+    if (tut_active(options, greedy)) {
       options$eval <- FALSE
-      options$echo <- TRUE
     }
     options
   })
 
-  tutorial$set(default_source_hook = knitr::knit_hooks$get("source"))
-  tutorial$set(default_document_hook = knitr::knit_hooks$get("document"))
-  knitr::knit_hooks$set(source = extract_elements,
-                        document = replace_elements)
-}
+  knitr::knit_hooks$set(source = function(x, options) {
+    if(tut_active(options, greedy)) {
 
-tut_active <- function(options) {
-  if(tutorial$get("greedy")) {
-    is.null(options$tut) || isTRUE(options$tut)
-  } else {
-    !is.null(options$tut) && isTRUE(options$tut)
-  }
-}
+      ex <- options[["ex"]]
+      if (is.null(ex)) ex <- options$label
 
-extract_elements <- function(x, options) {
-  if(tut_active(options)) {
+      if (!(ex %in% names(blocks))) {
+        lang <- tolower(options$engine)
+        key <- sprintf("dc_light_exercise_%s", ex)
+        blocks[[ex]] <- list(lang = lang,
+                             height = NULL,
+                             els = list(),
+                             ex = ex,
+                             key = key)
+      } else {
+        # key is already in there
+        key <- NULL
+      }
 
-    ex <- options[["ex"]]
-    if (is.null(ex)) ex <- options$label
+      type <- options[["type"]]
+      if (is.null(type)) type <- "sample-code"
+      blocks[[ex]]$els[[type]] <- paste(x, collapse = "\n")
 
-    blocks <- tutorial$get("blocks")
-    if (!(ex %in% names(blocks))) {
-      lang <- tolower(options$engine)
-      key <- sprintf("dc_light_exercise_%s", ex)
-      blocks[[ex]] <- list(lang = lang,
-                           height = NULL,
-                           els = list(),
-                           ex = ex,
-                           key = key)
+      height <- options[["height"]]
+      if (!is.null(height)) {
+        blocks[[ex]]$height <- height
+      }
+
+      blocks <<- blocks
+
+      return(key)
     } else {
-      # key is already in there
-      key <- NULL
+      default_source_hook(x, options)
+    }
+  },
+  document = function(x) {
+
+    if (length(blocks) > 0) {
+      for (block in blocks) {
+        if (!all(required_elements %in% names(block$els))) {
+          stop(sprintf("%s does not contain all required elements. You need %s",
+                       block$ex, collapse(required_elements)))
+        }
+        if (!all(names(block$els) %in% allowed_elements)) {
+          stop(sprintf("%s contains elements that are not understood by %s.",
+                       block$ex, project_alias))
+        }
+        html <- render_exercise(block, default_height = height)
+        x[x == sprintf("dc_light_exercise_%s", block$ex)] <- html
+      }
+      x
     }
 
-    type <- options[["type"]]
-    if (is.null(type)) type <- "sample-code"
-    blocks[[ex]]$els[[type]] <- paste(x, collapse = "\n")
-
-    height <- options[["height"]]
-    if (!is.null(height)) {
-      blocks[[ex]]$height <- height
-    }
-
-    tutorial$set(blocks = blocks)
-
-    return(key)
-  } else {
-    tutorial$get("default_source_hook")(x, options)
-  }
+    return(default_document_hook(x))
+  })
 }
 
-replace_elements <- function(x) {
-
-  blocks <- tutorial$get("blocks")
-
-  if (length(blocks) > 0) {
-    for (block in blocks) {
-      if (!all(required_elements %in% names(block$els))) {
-        stop(sprintf("%s does not contain all required elements. You need %s",
-                     block$ex, collapse(required_elements)))
-      }
-      if (!all(names(block$els) %in% allowed_elements)) {
-        stop(sprintf("%s contains elements that are not understood by %s.",
-                     block$ex, project_alias))
-      }
-      html <- render_exercise(block, default_height = tutorial$get("height"))
-      x[x == sprintf("dc_light_exercise_%s", block$ex)] <- html
-    }
-    x
+tut_active <- function(options, greedy) {
+  if(greedy) {
+    to_check <- is.null(options$tut) || isTRUE(options$tut)
+  } else {
+    to_check <- !is.null(options$tut) && isTRUE(options$tut)
   }
-
-  return(tutorial$get("default_document_hook")(x))
+  to_check && options$echo && options$include
 }

@@ -28,7 +28,3 @@ render_exercise <- function(block, default_height) {
   patt <- "%s<div data-datacamp-exercise data-lang=\"%s\" data-height=\"%s\" data-encoded=\"true\">%s</div>"
   return(sprintf(patt, pre, block$lang, height, encoded))
 }
-
-get_height <- function(chunk_height, default_height) {
-
-}
