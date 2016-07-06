@@ -44,13 +44,11 @@ go_interactive <- function(greedy = TRUE, height = 250) {
       if (is.null(ex)) ex <- options$label
 
       if (!(ex %in% names(blocks))) {
-        lang <- tolower(options$engine)
         key <- sprintf("dc_light_exercise_%s", ex)
-        blocks[[ex]] <<- list(lang = lang,
-                             height = NULL,
-                             els = list(),
-                             ex = ex,
-                             key = key)
+        blocks[[ex]] <<- list(height = NULL,
+                              els = list(language = tolower(options$engine)),
+                              ex = ex,
+                              key = key)
       } else {
         # key is already in there
         key <- NULL

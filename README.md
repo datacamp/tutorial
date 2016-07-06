@@ -125,9 +125,28 @@ You can power your package's vignettes with DataCamp Light by adding the same li
     
     _remainder of vignette omitted_
 
-## Support for Python
+## Python
 
-You'll soon be able to use `tutorial` to create HTML files that feature an interactive Python environment.
+You can also code up Python exercises with `tutorial`:
+
+    ---
+    title: "Example Document"
+    author: "Your name here"
+    output: html_document
+    ---
+
+    ```{r, include=FALSE}
+    tutorial::go_interactive()
+    ```
+    
+    Here's an example of a Python fiddle/
+
+    ```{python}
+    a = 2
+    b = 3
+
+    print(a + b)
+    ```
 
 ## Other Documentation
 

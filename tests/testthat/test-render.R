@@ -30,7 +30,7 @@ library(rjson)
 library(base64enc)
 extract_parts <- function(file) {
   html <- readLines(file)
-  before_ind <- grep("<div data-datacamp-exercise data-lang=\"r\" .*? data-encoded=\"true\">", html)
+  before_ind <- grep("<div data-datacamp-exercise .*? data-encoded=\"true\">", html)
   if (length(before_ind) == 0) {
     return(NULL)
   } else {
