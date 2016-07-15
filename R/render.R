@@ -21,9 +21,8 @@ render_exercise <- function(block, default_height) {
   els <- rename(els, "sample-code", "sample")
 
   encoded <- base64encode(charToRaw(toJSON(els)))
-  pre <- "<script src=\"https://cdn.datacamp.com/datacamp-light-1.0.0.min.js\"></script>\n"
-  patt <- "%s<div data-datacamp-exercise data-height=\"%s\" data-encoded=\"true\">%s</div>"
-  return(sprintf(patt, pre, height, encoded))
+  patt <- "<div data-datacamp-exercise data-height=\"%s\" data-encoded=\"true\">%s</div>"
+  return(sprintf(patt, height, encoded))
 }
 
 rename <- function(named_vec, from, to) {

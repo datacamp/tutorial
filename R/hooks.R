@@ -83,7 +83,8 @@ go_interactive <- function(greedy = TRUE, height = 250) {
         html <- render_exercise(block, default_height = height)
         x[x == sprintf("dc_light_exercise_%s", block$ex)] <- html
       }
-      x
+      pre <- sprintf("<script src=\"https://cdn.datacamp.com/%s\"></script>\n", cdn_path)
+      x <- c(pre, x)
     }
 
     return(default_document_hook(x))

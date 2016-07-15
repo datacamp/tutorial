@@ -1,6 +1,8 @@
 allowed_elements <- c("language", "pre-exercise-code", "sample-code", "solution", "sct", "hint")
 required_elements <- c("sample-code")
 project_alias <- "DataCamp Light"
+cdn_path <- "datacamp-light-1.0.0.min.js"
+# cdn_path <- "dcl/datacamp-light-1.1.0.min.js" # new version
 
 cpaste <- function(x) {
   paste(x, collapse = "\n")
