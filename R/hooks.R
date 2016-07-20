@@ -21,7 +21,7 @@
 #'
 #' @importFrom knitr opts_knit knit_hooks opts_hooks
 #' @export
-go_interactive <- function(greedy = TRUE, height = 250) {
+go_interactive <- function(greedy = TRUE, height = 300) {
 
   stopifnot(is.logical(greedy))
   stopifnot(is.numeric(height))
