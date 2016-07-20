@@ -4,7 +4,7 @@
 \alias{go_interactive}
 \title{Set up your R Markdown document to use DataCamp light}
 \usage{
-go_interactive(greedy = TRUE, height = 250)
+go_interactive(greedy = TRUE, height = 300)
 }
 \arguments{
 \item{greedy}{whether or not to 'greedily' convert code chunks into DataCamp
