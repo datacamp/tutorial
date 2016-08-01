@@ -14,4 +14,4 @@ There are no packages depending on this package yet.
 
 ## Other notes
 
-Updated the link in README.md to have a canonical CRAN URL
+- Fix the system requirements error raised by Prof Brian Ripley (pandoc < v1.16 on fedora can't fetch HTTPS)
