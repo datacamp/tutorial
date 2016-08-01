@@ -12,6 +12,7 @@ Description: DataCamp Light (<https://github.com/datacamp/datacamp-light>) is a 
   with DataCamp Light readable chunks in the resulting HTML file.
 License: MIT + file LICENSE
 LazyData: TRUE
+Depends: R (>= 3.3.0)
 Imports:
     markdown,
     knitr,
