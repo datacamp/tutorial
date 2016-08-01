@@ -37,8 +37,6 @@ Knit your document: in RStudio, simply hit "Knit HTML", or use
 rmarkdown::render("path_to_my_file", output_format = "html_document")
 ```
 
-_NOTE: DataCamp Light is not supported in RStudio's HTML viewer; you have to click 'Open in Browser' to see your DataCamp Light chunks in action._
-
 ## How it works
 
 R vignettes, blog posts and teaching material are typically standard web pages generated with R markdown. DataCamp has developed a framework to make this static content interactive: R code chunks are converted into an R-session backed editor so readers can experiment.
