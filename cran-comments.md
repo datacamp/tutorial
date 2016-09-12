@@ -14,4 +14,4 @@ There are no packages depending on this package yet.
 
 ## Other notes
 
-Update README to only contain CRAN URLs in canonical form.
+Build vignettes
