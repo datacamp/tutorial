@@ -13,7 +13,9 @@ vignette: >
 tutorial::go_interactive()
 ```
 
-The `tutorial` package by [DataCamp](https://www.datacamp.com) is a utility for `knitr` that is able to convert your static code chunks into an R editor where people can experiment. This is done with the help of [DataCamp Light](https://www.github.com/datacamp/datacamp-light), a JavaScript library that converts HTML chunks with the proper formatting into iframes that house an interactive R session.
+At DataCamp we build tools to [learn data science](https://www.datacamp.com) interactively. See e.g. our online [R tutorial](https://www.datacamp.com/courses/free-introduction-to-r) to learn R Programming and our Python For Data Science tutorial to [learn Python](https://www.datacamp.com/courses/intro-to-python-for-data-science).
+
+The `tutorial` package by DataCamp is a utility for knitr that is able to convert your static code chunks into an R editor where people can experiment. This is done with the help of [DataCamp Light](https://www.github.com/datacamp/datacamp-light), a JavaScript library that converts HTML chunks with the proper formatting into iframes that house an interactive R session.
 
 This vignette will discuss two ways of using the `tutorial` package: to create interactive 'fiddles' and to create fully-fledged coding exercise right inside your browser.
 

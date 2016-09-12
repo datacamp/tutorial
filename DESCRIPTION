@@ -4,7 +4,7 @@ Title: Convert R Markdown Files to DataCamp Light HTML Files
 Version: 0.4.1
 Author: Filip Schouwenaars
 Maintainer: Filip Schouwenaars <filip@datacamp.com>
-URL: https://github.com/datacamp/tutorial
+URL: http://www.datacamp.com
 BugReports: https://github.com/datacamp/tutorial/issues
 Description: DataCamp Light (<https://github.com/datacamp/datacamp-light>) is a light-weight implementation of the DataCamp UI,
   that allows you to embed interactive exercises inside HTML documents. The tutorial package makes it easy to create these
