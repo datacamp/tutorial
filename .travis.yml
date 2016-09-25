@@ -1,11 +1,14 @@
-language: r
-sudo: required
+language: R
+sudo: false
+cache: packages
+r:
+  - oldrel
+  - release
+  - devel
 
 r_github_packages:
   - datacamp/tutorial  # pre-install to avoid vignette package errors
-
-r_packages:
-  - covr
+  - jimhester/covr
 
 after_success:
   - Rscript -e 'library(covr); covr::codecov()'
