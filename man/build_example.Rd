@@ -4,7 +4,10 @@
 \alias{build_example}
 \title{Create example .Rmd file in the current working directory}
 \usage{
-build_example()
+build_example(open = TRUE)
+}
+\arguments{
+\item{open}{Open the file after building the example?}
 }
 \description{
 Create the file \code{example.Rmd} in your current working directory.

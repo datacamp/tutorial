@@ -26,7 +26,9 @@ Suppose you have a basic R Markdown file that looks as follows:
     ---
     title: "Example Document"
     author: "Your name here"
-    output: html_document
+    output:
+      html_document:
+        self_contained: false
     ---
 
     You can create variables with `<-`:
@@ -41,7 +43,9 @@ To convert your static code chunk from before into a fiddle to experiment, you h
     ---
     title: "Example Document"
     author: "Your name here"
-    output: html_document
+    output:
+      html_document:
+        self_contained: false
     ---
 
     ```{r, include=FALSE}
