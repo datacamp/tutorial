@@ -1,7 +1,9 @@
 ---
 title: "Example Document"
 author: "Your name here"
-output: html_document
+output:
+  html_document:
+    self_contained: false
 ---
 
 ```{r, include=FALSE}
