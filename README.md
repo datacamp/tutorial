@@ -69,7 +69,7 @@ If you render an R Markdown document like this:
 
 An HTML file results that features an in-browser R editor with a session attached to it, where you can experiment.
 
-![html_file](https://s3.amazonaws.com/assets.datacamp.com/img/github/content-engineering-repos/tutorial_fiddle.png)
+![html_file](https://s3.amazonaws.com/assets.datacamp.com/img/github/content-engineering-repos/tutorial_fiddle2.png)
 
 Notice that the option `self_contained: false` is used. That way, always the latest version of the DataCamp Light JS library is fetched when the document is opened. If `self_contained: true`, the version of the JS library at 'knit time' is baked into the HTML document. This can cause backwards compatibility issues.
 
