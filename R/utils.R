@@ -1,7 +1,7 @@
 allowed_elements <- c("language", "pre-exercise-code", "sample-code", "solution", "sct", "hint")
 required_elements <- c("sample-code")
 project_alias <- "DataCamp Light"
-cdn_path <- "datacamp-light-latest.min.js"
+script_tag <- "<script src=\"https://cdn.datacamp.com/datacamp-light-latest.min.js\"></script>\n"
 
 cpaste <- function(x) {
   paste(x, collapse = "\n")

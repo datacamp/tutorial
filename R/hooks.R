@@ -69,7 +69,6 @@ go_interactive <- function(greedy = TRUE, height = 300) {
     }
   },
   document = function(x) {
-
     if (length(blocks) > 0) {
       for (block in blocks) {
         if (!all(required_elements %in% names(block$els))) {
@@ -83,10 +82,8 @@ go_interactive <- function(greedy = TRUE, height = 300) {
         html <- render_exercise(block, default_height = height)
         x[x == sprintf("dc_light_exercise_%s", block$ex)] <- html
       }
-      pre <- sprintf("<script src=\"https://cdn.datacamp.com/%s\"></script>\n", cdn_path)
-      x <- c(pre, x)
+      x <- c(script_tag, x)
     }
-
     return(default_document_hook(x))
   })
 }
