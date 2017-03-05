@@ -32,7 +32,7 @@ Suppose you have a basic R Markdown file that looks as follows:
     ---
 
     You can create variables with `<-`:
-    
+
     ```{r}
     a <- 2
     b <- 3
@@ -51,14 +51,14 @@ To convert your static code chunk from before into a fiddle to experiment, you h
     ```{r, include=FALSE}
     tutorial::go_interactive()
     ```
-    
+
     You can create variables with `<-`:
 
     ```{r}
     a <- 2
     b <- 3
     ```
-    
+
 If you now render your R Markdown file, the resulting HTML file will contain an iframe:
 
 ```{r}
@@ -74,7 +74,7 @@ To not clutter the code example, you might want to pre-load some data or load so
     c <- 4
     library(stringr)
     ```
-    
+
     ```{r ex="play_around", type="sample-code"}
     a <- 2
     b <- 3
@@ -98,29 +98,29 @@ Next to fiddles, you can also code up entire interactive exercises with DataCamp
     ```{r ex="create_a", type="pre-exercise-code"}
     b <- 5
     ```
-    
+
     ```{r ex="create_a", type="sample-code"}
     # Create a variable a, equal to 5
-    
-    
+
+
     # Print out a
-    
+
     ```
-    
+
     ```{r ex="create_a", type="solution"}
     # Create a variable a, equal to 5
     a <- 5
-    
+
     # Print out a
     a
     ```
-    
+
     ```{r ex="create_a", type="sct"}
     test_object("a")
     test_output_contains("a", incorrect_msg = "Make sure to print out `a`.")
     success_msg("Great!")
     ```
-   
+
 Converts to the following DataCamp Light exercise:
 
 ```{r ex="create_a", type="pre-exercise-code"}
@@ -150,13 +150,3 @@ success_msg("Great!")
 ```
 
 The `pre-exercise-code` initializes the R session. The `sample-code` is the fill-in form to start from, The `solution` specifies the solution, and finally `sct` stands for Submission Correctness Test. These tests to check whether the student submitted the correct code, can be written with the functions from the [`testwhat`](https://www.github.com/datacamp/testwhat) package.
-
-For more examples on these DataCamp Light exercises, you can visit the text versions of DataCamp's free introduction to R course:
-
-- [Chapter 1: Intro to basics](https://www.datacamp.com/courses/free-introduction-to-r/chapter-1-intro-to-basics-1-r)
-- [Chapter 2: Vectors](https://www.datacamp.com/courses/free-introduction-to-r/chapter-2-vectors-2-r)
-- [Chapter 3: Matrices](https://www.datacamp.com/courses/free-introduction-to-r/chapter-3-matrices-3-r)
-- [Chapter 4: Factors](https://www.datacamp.com/courses/free-introduction-to-r/chapter-4-factors-4-r)
-- [Chapter 5: Data Frames](https://www.datacamp.com/courses/free-introduction-to-r/chapter-5-data-frames-r)
-- [Chapter 6: Lists](https://www.datacamp.com/courses/free-introduction-to-r/chapter-6-lists-r)
-
