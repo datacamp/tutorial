@@ -29,4 +29,3 @@ interactive frames. Only chunks for which you specify the option \code{tut =
 FALSE} are not converted. If `greedy` is  \code{FALSE}, only chunks for which
 you specify \code{tut = TRUE} are converted.
 }
-

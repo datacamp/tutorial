@@ -14,4 +14,3 @@ Create the file \code{example.Rmd} in your current working directory.
 This R Markdown files contains example code chunks that can be converted to
 interactive R playgrounds.
 }
-
