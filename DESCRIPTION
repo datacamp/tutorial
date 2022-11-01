@@ -10,7 +10,6 @@ Description: DataCamp Light (<https://github.com/datacamp/datacamp-light>) is a 
   HTML files from R Markdown files. An extension to knitr, tutorial detects appropriately formatted code chunks and replaces them
   with DataCamp Light readable chunks in the resulting HTML file.
 License: MIT + file LICENSE
-LazyData: TRUE
 Depends: R (>= 3.0.0)
 Imports:
     markdown,
