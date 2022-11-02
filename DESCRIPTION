@@ -19,8 +19,7 @@ Imports:
 Suggests:
     testthat,
     rmarkdown,
-    pkgdown,
-    covr
+    pkgdown
 SystemRequirements: pandoc (>= 1.12.3) - http://johnmacfarlane.net/pandoc
 RoxygenNote: 6.0.1
 VignetteBuilder: knitr
