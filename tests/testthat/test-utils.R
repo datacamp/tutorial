@@ -18,5 +18,5 @@ test_that("to_html works as expected", {
   expect_equal(to_html("test"), "test")
   expect_equal(to_html("_test_"), "<em>test</em>")
   expect_equal(to_html("__test__"), "<strong>test</strong>")
-  expect_equal(to_html("# title\ntest"), "<h1>title</h1>\n\n<p>test</p>")
+  expect_match(to_html("# title\ntest"), "<h1>title</h1>\n+<p>test</p>")
 })
